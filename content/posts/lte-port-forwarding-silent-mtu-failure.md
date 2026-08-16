@@ -1,7 +1,7 @@
 ---
 title: "The Port Forwarding Bug That Wasn't: A Silent MTU Failure on an LTE Link"
-date: 2026-08-16T15:30:00+09:00
-draft: true
+date: 2026-08-16T16:20:00+09:00
+draft: false
 tags: ["lte", "networking", "mtu", "debugging", "port-forwarding"]
 summary: "External access to an IP camera behind our LTE router kept dying while the router's own web UI worked fine from outside. The port forwarding rules were innocent: large TCP segments were coming off the LTE link damaged, and forcing the WAN MTU down to 1400 made the whole thing work."
 ---
