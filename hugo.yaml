@@ -1,9 +1,10 @@
 # Hugo site configuration - PaperMod theme
+# Multilingual: English (default, site root) + Korean (/ko/)
 
 baseURL: "https://pdh0085.github.io/"
-languageCode: "en-us"
 title: "Embedded Field Notes"
 theme: "PaperMod"
+defaultContentLanguage: en
 
 # Build settings
 enableRobotsTXT: true
@@ -15,6 +16,7 @@ minify:
   disableXML: true
   minifyOutput: true
 
+# Shared params (inherited by both languages unless overridden)
 params:
   env: production
   description: "Field notes on OpenWrt, Yocto, cellular CPE firmware, and TR-069 by a working firmware engineer."
@@ -30,12 +32,6 @@ params:
   TocOpen: false
   ShowRssButtonInSectionTermList: true
 
-  homeInfoParams:
-    Title: "Embedded Field Notes"
-    Content: >
-      Real-world debugging stories and how-tos from cellular CPE firmware development.
-      OpenWrt / Yocto / cellular modems (Quectel, Telit Cinterion, Sierra Wireless, u-blox, ...) / TR-069 / production test tooling.
-
   socialIcons:
     - name: github
       url: "https://github.com/pdh0085"
@@ -45,6 +41,56 @@ params:
     #   url: "https://www.linkedin.com/in/YOURPROFILE/"
     - name: rss
       url: "index.xml"
+
+languages:
+  en:
+    languageName: "English"
+    languageCode: "en-us"
+    weight: 1
+    params:
+      homeInfoParams:
+        Title: "Embedded Field Notes"
+        Content: >
+          Real-world debugging stories and how-tos from cellular CPE firmware development.
+          OpenWrt / Yocto / cellular modems (Quectel, Telit Cinterion, Sierra Wireless, u-blox, ...) / TR-069 / production test tooling.
+    menu:
+      main:
+        - identifier: posts
+          name: Posts
+          url: /posts/
+          weight: 10
+        - identifier: tags
+          name: Tags
+          url: /tags/
+          weight: 20
+        - identifier: about
+          name: About
+          url: /about/
+          weight: 30
+  ko:
+    languageName: "한국어"
+    languageCode: "ko-kr"
+    weight: 2
+    params:
+      homeInfoParams:
+        Title: "Embedded Field Notes"
+        Content: >
+          셀룰러 CPE 펌웨어 개발 현장에서 겪은 실전 디버깅 이야기.
+          OpenWrt / Yocto / 셀룰러 모뎀 (Quectel, Telit Cinterion, Sierra Wireless, u-blox, ...) / TR-069 / 양산 테스트 도구.
+    menu:
+      main:
+        - identifier: posts
+          name: 글
+          url: /posts/
+          weight: 10
+        - identifier: tags
+          name: 태그
+          url: /tags/
+          weight: 20
+        - identifier: about
+          name: 소개
+          url: /about/
+          weight: 30
 
 # Syntax highlighting - critical for log/command heavy posts
 markup:
@@ -56,21 +102,6 @@ markup:
   goldmark:
     renderer:
       unsafe: true  # allow raw HTML in markdown when needed
-
-menu:
-  main:
-    - identifier: posts
-      name: Posts
-      url: /posts/
-      weight: 10
-    - identifier: tags
-      name: Tags
-      url: /tags/
-      weight: 20
-    - identifier: about
-      name: About
-      url: /about/
-      weight: 30
 
 outputs:
   home:
