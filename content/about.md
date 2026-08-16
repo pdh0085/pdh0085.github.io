@@ -13,7 +13,8 @@ the field and how I solved them.
 **Things I work on:**
 
 - OpenWrt / Yocto based router firmware (Qualcomm IPQ807x and others)
-- Cellular modem integration: Quectel / Telit / Cinterion / Sierra Wireless and more (AT command level)
+- Cellular modem integration: Quectel, Telit Cinterion, Sierra Wireless, u-blox
+  and more — AT commands, QMI / MBIM, and USB networking modes (RNDIS / ECM / NCM)
 - TR-069 / TR-369 remote management, GenieACS deployment
 - Mass production test systems (Windows tooling, automated DUT control)
 - Reliability architecture: watchdog ladders, A/B failsafe boot
