@@ -1,0 +1,79 @@
+# Hugo site configuration - PaperMod theme
+
+baseURL: "https://pdh0085.github.io/"
+languageCode: "en-us"
+title: "Embedded Field Notes"
+theme: "PaperMod"
+
+# Build settings
+enableRobotsTXT: true
+buildDrafts: false
+buildFuture: false
+buildExpired: false
+
+minify:
+  disableXML: true
+  minifyOutput: true
+
+params:
+  env: production
+  description: "Field notes on OpenWrt, Yocto, cellular CPE firmware, and TR-069 by a working firmware engineer."
+  keywords: [OpenWrt, Yocto, "5G CPE", TR-069, GenieACS, Telit, firmware, embedded]
+  author: "Donghyun Park"
+  defaultTheme: auto        # light/dark follows system
+  ShowReadingTime: true
+  ShowShareButtons: false
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true # important for a tech blog
+  ShowToc: true
+  TocOpen: false
+  ShowRssButtonInSectionTermList: true
+
+  homeInfoParams:
+    Title: "Embedded Field Notes"
+    Content: >
+      Real-world debugging stories and how-tos from cellular CPE firmware development.
+      OpenWrt / Yocto / Telit modems / TR-069 / production test tooling.
+
+  socialIcons:
+    - name: github
+      url: "https://github.com/pdh0085"
+    # LinkedIn icon intentionally disabled for now.
+    # Uncomment and fill in the profile URL when ready:
+    # - name: linkedin
+    #   url: "https://www.linkedin.com/in/YOURPROFILE/"
+    - name: rss
+      url: "index.xml"
+
+# Syntax highlighting - critical for log/command heavy posts
+markup:
+  highlight:
+    codeFences: true
+    guessSyntax: true
+    style: monokai
+    lineNos: false
+  goldmark:
+    renderer:
+      unsafe: true  # allow raw HTML in markdown when needed
+
+menu:
+  main:
+    - identifier: posts
+      name: Posts
+      url: /posts/
+      weight: 10
+    - identifier: tags
+      name: Tags
+      url: /tags/
+      weight: 20
+    - identifier: about
+      name: About
+      url: /about/
+      weight: 30
+
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON  # enables built-in search page if you add one later
