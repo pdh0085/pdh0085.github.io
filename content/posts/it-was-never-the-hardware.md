@@ -1,7 +1,7 @@
 ---
 title: "It Was Never the Hardware"
-date: 2026-08-24T06:00:00+09:00
-draft: true
+date: 2026-08-17T09:51:00+09:00
+draft: false
 tags: ["gnss", "debugging", "5g", "firmware", "root-cause"]
 summary: "A 5G CPE in the field reported zero GPS satellites. Every value we could read matched a healthy unit, so the case was closed as a hardware fault. The problem was the values we couldn't read: one AT command later, the 'dead' board was tracking 22 satellites."
 ---
