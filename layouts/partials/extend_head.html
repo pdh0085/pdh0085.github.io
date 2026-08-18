@@ -1,0 +1,8 @@
+{{- /* GoatCounter analytics (privacy-friendly, no cookies).
+       Loaded only on production builds so local `hugo server` previews
+       do not pollute the stats. Replace YOURCODE with the site code
+       you chose when signing up at goatcounter.com. */ -}}
+{{- if hugo.IsProduction }}
+<script data-goatcounter="https://YOURCODE.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+{{- end }}
