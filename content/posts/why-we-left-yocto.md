@@ -1,6 +1,6 @@
 ---
 title: "We Threw Away Firmware That Worked"
-date: 2026-08-31T06:00:00+09:00
+date: 2026-08-17T10:00:00+09:00
 draft: true
 tags: ["openwrt", "yocto", "quark-x1000", "embedded", "porting"]
 summary: "The LTE572W runs on an Intel Quark X1000 — a single 400 MHz core, 256 MB of RAM. Its shipping firmware was a Yocto image that worked fine. We replaced all of it with OpenWrt 25.12. This is why, and these are the three constraints that would go on to shape everything that followed."
