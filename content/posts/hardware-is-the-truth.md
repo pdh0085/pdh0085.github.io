@@ -85,7 +85,7 @@ or memory.
 
 - Every fact carries **how we know it**. Not "verified" but "confirmed on a
   real board with this command." The rule goes down to a single connector
-  name (a document said CON8; it was actually CON6).
+  name (the document named one connector; the actual one was different).
 - Items proven wrong are not deleted — they stay, together with the reason
   they were overturned. Delete them and the next person rebuilds the same
   hypothesis from scratch.
