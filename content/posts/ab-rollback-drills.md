@@ -1,7 +1,7 @@
 ---
 title: "We Stopped Trusting 'Verified by Design' — Bricking Our Router Twice, On Purpose"
-date: 2026-08-17T10:00:00+09:00
-draft: true
+date: 2026-08-19T11:07:09+09:00
+draft: false
 tags: ["u-boot", "openwrt", "firmware-update", "reliability", "testing"]
 summary: "The A/B rollback on our 5G FWA router had never actually fired in three years, and the docs graded it 'verified by design.' So we broke the router two different ways on purpose. It came back on its own in 26.5 and 43.5 seconds — and along the way we found two places where our documentation was wrong."
 ---
