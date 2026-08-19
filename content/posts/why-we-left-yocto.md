@@ -1,9 +1,9 @@
 ---
 title: "We Threw Away Firmware That Worked"
-date: 2026-08-19T10:06:49+09:00
-draft: false
+date: 2026-08-17T10:00:00+09:00
+draft: true
 tags: ["openwrt", "yocto", "quark-x1000", "embedded", "porting"]
-summary: "The LTE572W runs on an Intel Quark X1000 — a single 400 MHz core, 256 MB of RAM. Its shipping firmware was a Yocto image that worked fine. We replaced all of it with OpenWrt 25.12. This is why, and these are the three constraints that would go on to shape everything that followed."
+summary: "The LTE572W runs on an Intel Quark X1000: a single 400 MHz core and 256 MB of RAM. Its shipping firmware was a Yocto image that worked fine. We replaced all of it with OpenWrt 25.12. This is why, and these are the three constraints that would go on to shape everything that followed."
 ---
 
 <!-- Part 1 of the LTE572W Yocto-to-OpenWrt porting series -->
@@ -11,13 +11,14 @@ summary: "The LTE572W runs on an Intel Quark X1000 — a single 400 MHz core, 25
 ## The Starting Point
 
 An industrial LTE router, the LTE572W. The CPU is an Intel Quark X1000
-(Lakemont): i586, single core at 400 MHz, no SMP, no MMX or SSE — but it does
-have an x87 FPU. 256 MB of RAM (the kernel sees 253 MB), 3.6 GB of eMMC.
+(Lakemont): i586, single core at 400 MHz, no SMP, no MMX or SSE, though it
+does have an x87 FPU. 256 MB of RAM (the kernel sees 253 MB), 3.6 GB of
+eMMC.
 
 The shipping firmware was a Yocto image based on Intel's X1000 reference
 design, which we at Lightspeed had been modifying and shipping. Cellular,
-GNSS, serial, the web UI — all of it lived on that stack. And it
-worked. This was a released product, running in the field.
+GNSS, serial, the web UI, all of it lived on that stack. And it worked. This
+was a released product, running in the field.
 
 Even so, at the end of June 2026, we decided to replace all of it with
 OpenWrt 25.12.
@@ -32,7 +33,7 @@ Qualcomm's proprietary API. When the modem module changed, the code had to
 change with it.
 
 Second, mainline gives you a lot for free. ModemManager, mwan3, FRR, LuCI,
-sysupgrade, overlayfs, the package feeds — most of what we had been building
+sysupgrade, overlayfs, the package feeds. Most of what we had been building
 and maintaining ourselves already exists in OpenWrt.
 
 Third, old hardware is not an excuse. The Quark X1000 is right there in the
@@ -58,26 +59,26 @@ eMMC mmcblk0p1 (FAT, vendor files untouched)
    └─ openwrt-overlay.img                       ← file we added
 ```
 
-Damage the partition table or the FAT and GRUB can't read its own menu — at
+Damage the partition table or the FAT and GRUB can't read its own menu, at
 which point you can't even reach the recovery entry in SPI. The only way back
 is physically reflashing the board. So the rule was set on day one:
 
 > Every change must be additive and reversible. No repartitioning. Never run
 > any grub tooling. The original files and the original boot entry stay.
 
-OpenWrt exists on that FAT as three files: a kernel image, a squashfs root,
-and an ext4 overlay image. That's the entire footprint.
+OpenWrt exists on that FAT as three files (a kernel image, a squashfs root,
+and an ext4 overlay image) and touches nothing else.
 
 ## Constraint 2: 400 MHz and 256 MB Is a Design Constraint, Not "Slowness"
 
-On this hardware, slowness isn't a user-experience complaint — it's a force
+On this hardware, slowness isn't a user-experience complaint. It's a force
 that changes designs. Later posts cover these one by one, but here's a
 preview of decisions this constraint actually reversed:
 
 - squashfs compression had to be gzip, not XZ (XZ decompression is far too
   slow here)
-- cellular must attach over QMI — the AT+PPP fallback is userspace HDLC,
-  which is a disaster on this CPU
+- cellular must attach over QMI, because the AT+PPP fallback is userspace
+  HDLC, which is a disaster on this CPU
 - forking a single `mmcli` process during boot costs 6–9 seconds, and it was
   happening 23 times
 - and if your root filesystem lives in RAM, large file uploads die from OOM.
@@ -87,9 +88,9 @@ preview of decisions this constraint actually reversed:
 ## Constraint 3: Coexistence
 
 There is a separate Windows migration tool that moves existing units to the
-new firmware, and **that tool owns `grub.conf`** (it stamps per-board values
+new firmware, and that tool owns `grub.conf` (it stamps per-board values
 into it). So the firmware never overwrites that file. We crossed that
-ownership boundary exactly once and then backed out — that story belongs to
+ownership boundary exactly once and then backed out; that story belongs to
 the boot-fallback post.
 
 ## The Working Setup
@@ -130,8 +131,9 @@ Not a feature tour. Most of the posts ahead are stories like these: a
 factory reset that reported success while doing nothing, a config file that
 had never once been read, a modem that said "connected" while passing zero
 packets, and inherited assumptions I finally disproved with experiments.
+The common thread is things that were failing silently, and what it took to
+notice them.
 
-Call it a record of finding the things that were failing silently. Next up
-is the first gate: building a toolchain in 2026 for an i586 CPU with no MMX
-and no SSE — where the first build broke not in the compiler, but in libc's
+Next up is the first gate: building a toolchain in 2026 for an i586 CPU with
+no MMX and no SSE. The first build broke not in the compiler, but in libc's
 `fabs()`.

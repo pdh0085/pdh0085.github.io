@@ -23,7 +23,7 @@ this:
 | Sleep | `110` |
 
 One prerequisite worth noting: to see these GPIOs at all, the kernel needs
-`CONFIG_LPC_SCH=y`. Without it there is no error — the `sch_gpio` chip simply
+`CONFIG_LPC_SCH=y`. Without it there is no error; the `sch_gpio` chip simply
 never appears. That alone was one trap along the way.
 
 ## The Symptom
@@ -31,7 +31,7 @@ never appears. That alone was one trap along the way.
 Software says the port is in `rs232` mode. Reading the GPIOs back returns
 exactly the values we wrote. And yet no RS-232 levels come out of the pins.
 
-## The Existing Conclusions — All Plausible, All Wrong
+## The Existing Conclusions
 
 This symptom already had a history. The internal documentation had closed it
 out as a hardware failure: "the SP336's TX charge pump is dead." One piece of
@@ -40,13 +40,14 @@ carried no signal. But this board's DB9 layout is non-standard, and that pin
 is actually an input (CTS), not an output. An input pin sitting at 0 V is
 normal. What had been read as proof of a failure was, in fact, correct
 behavior. On top of that, a loopback test had returned zero bytes of RX,
-which was being blamed on flow control on the PC side.
+which was being blamed on flow control on the PC side. Both explanations were
+plausible, and both were wrong.
 
 I believed that document too, and spent a while staring only at the hardware.
 When wrong conclusions stack up two layers deep, they narrow the search space
 in exactly the wrong direction.
 
-## Changing the Approach — Compare Against a Known-Good System
+## Comparing Against a Known-Good System
 
 On this same board, the Yocto firmware produces RS-232 just fine. Which means
 there is one question worth asking: what are the GPIOs set to *then*?
@@ -57,25 +58,25 @@ Our OpenWrt:                   three mode GPIOs = 1/0/0
 ```
 
 Completely different. Yet our code insisted it had written the requested
-values, and readback agreed. So what was wrong wasn't the values — it was the
+values, and readback agreed. So what was wrong wasn't the values. It was the
 interpretation of the values.
 
 ## The Root Cause
 
 The code had its bit-to-pin mapping inverted. The mapping the code assumed
-and the actual board wiring were swapped on two of the signal lines —
-`SER_MODE0` and `SER_MODE2` — which we confirmed against the schematic. So a
+and the actual board wiring were swapped on two of the signal lines,
+`SER_MODE0` and `SER_MODE2`, which we confirmed against the schematic. So a
 request for `rs232` (mode `001`) actually put the chip into mode `100`:
 RS-485 half duplex. With the SP336 sitting in RS-485 half duplex, of course
 it produced no RS-232 levels. That is what made it *look like* a dead charge
 pump.
 
-Fixing that one mapping line collapsed three unresolved items at once. The
-"dead charge pump" — the chip was healthy; the port had simply never been in
-RS-232 mode. The zero-byte loopback — not a PC flow-control problem, same
-cause. The "failed" dry-contact test — same cause again. When a single root
-cause explains three open issues simultaneously, that is the signal that you
-have actually found it.
+Fixing that one mapping line cleared three unresolved items at once. The
+"dead charge pump": the chip was healthy, and the port had simply never been
+in RS-232 mode. The zero-byte loopback was not a PC flow-control problem,
+same cause. The "failed" dry-contact test, same cause again. When a single
+root cause explains three open issues simultaneously, that is a good sign
+you have actually found it.
 
 ## What "Verified" Really Meant
 
@@ -84,14 +85,14 @@ GPIO readback."
 
 Readback only confirms that the value you intended landed in the register. It
 says nothing about what that value *means* in hardware. That comment used the
-word "verified" to seal in an unverified assumption — and it sent the next
+word "verified" to seal in an unverified assumption, and it sent the next
 person (me) in the wrong direction more than once.
 
-## A Side Story — The Kernel Patch That Did Nothing
+## A Side Story: The Kernel Patch That Did Nothing
 
 From the same serial work, I also inherited an RS-485 kernel patch, and on
 inspection it was doing nothing at all. The patch installed two callbacks in
-a setup function — but the probe code called the common initialization
+a setup function, but the probe code called the common initialization
 function on the very next line, and that function reassigned the same two
 pointers, plus two more the patch had missed. Everything the patch wrote was
 always overwritten. With the patch removed, a TIOCGRS485/TIOCSRS485 prober
@@ -105,8 +106,8 @@ console UART and wrecked the console. Once was enough.
 
 ## Lessons
 
-- Readback is not verification. You have to observe the result in hardware —
-  an actual signal, or a comparison against a known-good system.
+- Readback is not verification. You have to observe the result in hardware,
+  either an actual signal or a comparison against a known-good system.
 - If another firmware works correctly on the same board, it is the most
   accurate reference document you have. Dumping and diffing GPIO state was
   faster than re-reading the documentation.
