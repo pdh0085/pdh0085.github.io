@@ -1,7 +1,7 @@
 ---
 title: "2026년에 i586 툴체인 만들기"
-date: 2026-08-17T10:00:00+09:00
-draft: true
+date: 2026-08-21T08:10:06+09:00
+draft: false
 tags: ["openwrt", "toolchain", "gcc", "musl", "quark-x1000", "i586"]
 summary: "Quark X1000은 i586에 MMX/SSE가 없고 x87 FPU는 있다. 이 조합을 위한 OpenWrt 툴체인의 첫 빌드는 컴파일러가 아니라 libc의 fabs()에서 멈췄다. 원인은 없는 명령어가 아니라 틀린 기본값이었고, 검증은 산출물 285개를 세는 것으로 끝냈다."
 ---
