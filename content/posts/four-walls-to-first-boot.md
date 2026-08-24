@@ -1,7 +1,7 @@
 ---
 title: "Four Walls on the Way to First Boot"
-date: 2026-08-17T10:00:00+09:00
-draft: true
+date: 2026-08-24T10:31:59+09:00
+draft: false
 tags: ["openwrt", "quark-x1000", "kernel-config", "acpi", "serial-console", "debugging"]
 summary: "The kernel came up fine. There was just no console, no disk, and no ethernet. Four walls stood between our Quark X1000 board and a working OpenWrt first boot, and three of the symptoms turned out to converge on a single disabled kernel option: CONFIG_ACPI."
 ---

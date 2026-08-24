@@ -1,7 +1,7 @@
 ---
 title: "첫 부팅까지 넘은 네 개의 벽"
-date: 2026-08-17T10:00:00+09:00
-draft: true
+date: 2026-08-24T10:31:59+09:00
+draft: false
 tags: ["openwrt", "quark-x1000", "kernel-config", "acpi", "serial-console", "debugging"]
 summary: "커널은 잘 떴다. 콘솔이 안 보이고, eMMC가 없고, 이더넷이 없었을 뿐이다. Quark X1000 보드에서 OpenWrt 첫 부팅까지 넘은 네 개의 벽 이야기인데, 그중 세 증상은 꺼져 있던 커널 옵션 하나(CONFIG_ACPI)로 수렴했다."
 ---
