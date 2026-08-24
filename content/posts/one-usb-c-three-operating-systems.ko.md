@@ -1,7 +1,7 @@
 ---
 title: "USB-C 하나로 윈도우·맥·리눅스를 무설치로"
-date: 2026-08-17T10:00:00+09:00
-draft: true
+date: 2026-08-24T08:11:52+09:00
+draft: false
 tags: ["usb", "usb-gadget", "embedded", "networking", "performance", "5g"]
 summary: "우리 5G CPE의 USB-C를 꽂으면 세 OS 모두 드라이버 없이 네트워크로 잡혀야 했다. ECM은 맥과 리눅스만 되고 RNDIS는 윈도우만 되는데, 둘 다 넣으니 하드웨어가 거부했다. 셋 다 되는 답을 찾고, 900Mbps라는 첫 측정값이 거짓말이었다는 것까지 알아낸 이야기다. 실측은 315/365Mbps였고, 그건 USB 2.0의 실질 천장이었다."
 ---
