@@ -1,7 +1,7 @@
 ---
 title: "펌웨어 굽는 중에 전원을 뽑았다"
-date: 2026-08-17T10:00:00+09:00
-draft: true
+date: 2026-08-26T13:49:37+09:00
+draft: false
 tags: ["ota", "firmware-update", "reliability", "openwrt", "recovery", "embedded"]
 summary: "플래시 도중 전원이 나가면 벽돌이 된다. A/B 파티션을 넣을 공간은 없었다. 두 번째 슬롯에 필요한 226MB가 1024MB 저장소 어디에도 없었기 때문이다. 이미 구워져 나오는 recovery 파티션으로 그 창을 닫았고, 진짜로 전원을 뽑아서 확인했다. 복귀까지 약 2분 30초, 사람 손은 닿지 않았다."
 ---

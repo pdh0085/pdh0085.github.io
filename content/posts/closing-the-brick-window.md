@@ -1,7 +1,7 @@
 ---
 title: "We Pulled the Plug Mid-Flash"
-date: 2026-08-17T10:00:00+09:00
-draft: true
+date: 2026-08-26T13:49:37+09:00
+draft: false
 tags: ["ota", "firmware-update", "reliability", "openwrt", "recovery", "embedded"]
 summary: "If power fails mid-flash, the device is a brick. We had no room for A/B partitions: a second slot needs 226MB and the 1024MB of storage had none to spare. So we closed the window with the recovery partition that ships from the factory anyway, and then we actually pulled the plug to prove it. Back to a healthy boot in about 2 minutes 30 seconds, no human hands."
 ---
