@@ -1,7 +1,7 @@
 ---
 title: "RAM에서 루트파일시스템을 내리다"
-date: 2026-08-17T10:00:00+09:00
-draft: true
+date: 2026-08-28T15:18:38+09:00
+draft: false
 tags: ["openwrt", "quark-x1000", "squashfs", "initramfs", "oom", "embedded"]
 summary: "웹 UI 펌웨어 업로드가 HTTP 502로 죽었다. 웹 서버 문제가 아니었다. 루트파일시스템이 RAM에 있었고, /rom 약 70 MB가 회수 불가능하게 고정돼 있었다. zram은 통하지 않았고, 결국 루트를 squashfs loop 마운트로 내렸다. 그리고 예전 문서의 '약 147 MB 확보'가 처음부터 사실이 아니었다는 이야기도 한다."
 ---
