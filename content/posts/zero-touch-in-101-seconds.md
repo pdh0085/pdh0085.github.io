@@ -1,7 +1,7 @@
 ---
 title: "From Sealed Box to In Service in 101 Seconds"
-date: 2026-08-17T10:00:00+09:00
-draft: true
+date: 2026-09-02T08:27:06+09:00
+draft: false
 tags: ["tr-069", "zero-touch-provisioning", "dhcp-option-43", "openwrt", "acs", "fwa"]
 summary: "A factory-fresh router found the carrier's management server on its own, pulled its configuration, and was in service in 101.5 seconds, 100.9 of which were boot time. On the way to that number, we discovered a feature that our docs said we supported but that had never once executed."
 ---
