@@ -1,7 +1,7 @@
 ---
 title: "부트 에스컬레이션 래더"
-date: 2026-08-17T10:00:00+09:00
-draft: true
+date: 2026-09-04T09:15:11+09:00
+draft: false
 tags: [openwrt, boot-fallback, sysupgrade, quark-x1000, embedded, reliability]
 summary: "루트가 eMMC 위의 파일이 되자 sysupgrade는 그 파일을 바꾸는 일이 됐다. 그런데 새 루트가 부팅에 실패하면? boot_state 파일 하나로 굴러가는 5단계 폴백 사다리를 설계했고, sysupgrade 도중 실제로 12V를 뽑아 검증했다. 결과는 모듈 144개 로드, 벽돌 없음. 그리고 진짜 중요한 단계는 테스트가 아니라 리뷰에서 발견됐다."
 ---

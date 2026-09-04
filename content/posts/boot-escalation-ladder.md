@@ -1,7 +1,7 @@
 ---
 title: "The Boot Escalation Ladder"
-date: 2026-08-17T10:00:00+09:00
-draft: true
+date: 2026-09-04T09:15:11+09:00
+draft: false
 tags: [openwrt, boot-fallback, sysupgrade, quark-x1000, embedded, reliability]
 summary: "Once the root filesystem became a file on eMMC, sysupgrade became the act of replacing that file. So what happens when the new root fails to boot? We built a five-rung fallback ladder driven by a single boot_state file, and validated it by literally pulling the 12V supply mid-sysupgrade. Result: 144 modules loaded, no brick. The rung that actually matters was found in review, not testing."
 ---
