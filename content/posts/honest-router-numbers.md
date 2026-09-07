@@ -1,7 +1,7 @@
 ---
 title: "Honest Router Numbers"
-date: 2026-08-17T10:00:00+09:00
-draft: true
+date: 2026-09-07T11:13:12+09:00
+draft: false
 tags: [openwrt, vpn, ipsec, wireguard, failover, benchmarking]
 summary: "On our gateway, IPsec and WireGuard push almost the same throughput, but one uses 1.54 cores and the other 2.51. And our first IPsec 'success' returned pings in 0.74 ms while the SA counters read zero bytes: the tunnel wasn't encrypting anything. After that day, no number got recorded until a counter proved the traffic actually took the path."
 ---

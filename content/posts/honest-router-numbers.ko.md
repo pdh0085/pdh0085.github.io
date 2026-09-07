@@ -1,7 +1,7 @@
 ---
 title: "라우터 성능을 재는 정직한 방법"
-date: 2026-08-17T10:00:00+09:00
-draft: true
+date: 2026-09-07T11:13:12+09:00
+draft: false
 tags: [openwrt, vpn, ipsec, wireguard, failover, benchmarking]
 summary: "IPsec과 WireGuard는 우리 게이트웨이에서 거의 같은 속도를 내는데, CPU는 1.54코어 대 2.51코어를 쓴다. 그리고 첫 IPsec '성공'은 핑이 0.74 ms로 돌아오는데 SA 카운터가 0바이트였다. 터널은 암호화를 하고 있지 않았다. 그날 이후 모든 수치는 카운터로 증명한 뒤에만 기록했다."
 ---
