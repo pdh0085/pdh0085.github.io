@@ -1,7 +1,7 @@
 ---
 title: "조용히 죽어 있던 복구 경로 두 개"
-date: 2026-08-17T10:00:00+09:00
-draft: true
+date: 2026-09-09T08:11:06+09:00
+draft: false
 tags: [openwrt, sysupgrade, factory-reset, procd, shell-scripting, embedded]
 summary: "`sysupgrade -n`은 한 번도 설정을 지운 적이 없었고, 공장초기화는 서로 다른 이유로 두 번 죽어 있었다. 둘 다 에러 없이 성공했다고 보고했다. 하나는 프로세스 경계에서 변수가 죽었고, 하나는 볼륨 추상화가 256 KB 정렬 패딩을 rootfs_data라고 자신 있게 선언한 탓이었다."
 ---
