@@ -1,7 +1,7 @@
 ---
 title: "현장 출동을 없애는 일은, 멈출 줄 아는 기능을 만드는 일이었다"
-date: 2026-08-17T10:00:00+09:00
-draft: true
+date: 2026-09-11T12:33:38+09:00
+draft: false
 tags: [5g, cpe, reliability, self-healing, tr-069, fleet-operations]
 summary: "현장 출동을 유발하는 경로를 역산해 우리 5G CPE에 다섯 개의 가드를 넣었다. 어려운 부분은 고치는 로직이 아니라 고치기를 멈추는 조건이었다. 멈출 줄 모르는 복구 기능은 복구 기능이 아니라 새로운 장애다."
 ---
