@@ -1,7 +1,7 @@
 ---
 title: "Code That Never Updates in the Field"
-date: 2026-08-17T10:00:00+09:00
-draft: true
+date: 2026-09-14T13:21:50+09:00
+draft: false
 tags: ["openwrt", "uci-defaults", "overlayfs", "modemmanager", "hotplug", "embedded"]
 summary: "Every boot on a fresh overlay, about 25 bytes of binary garbage hit the serial console around the 185-second mark. The culprit was ModemManager probing the console UART as if it were a modem. I wrote a filter and put it in uci-defaults, and it did nothing, for two separate reasons."
 ---

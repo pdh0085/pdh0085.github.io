@@ -1,7 +1,7 @@
 ---
 title: "필드에서 절대 갱신되지 않는 코드"
-date: 2026-08-17T10:00:00+09:00
-draft: true
+date: 2026-09-14T13:21:50+09:00
+draft: false
 tags: ["openwrt", "uci-defaults", "overlayfs", "modemmanager", "hotplug", "embedded"]
 summary: "새 overlay로 부팅할 때마다 약 185초 지점에서 시리얼 콘솔에 25바이트쯤 되는 바이너리가 찍혔다. 범인은 콘솔 UART를 모뎀으로 착각한 ModemManager였다. 필터를 만들어 uci-defaults에 넣었는데 아무 효과가 없었다. 이유가 두 겹이었다."
 ---
