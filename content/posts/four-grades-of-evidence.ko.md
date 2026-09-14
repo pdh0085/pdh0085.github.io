@@ -1,7 +1,7 @@
 ---
 title: "'된다'를 네 등급으로 쪼갰다: measured, armed, inference, gap"
-date: 2026-08-17T10:00:00+09:00
-draft: true
+date: 2026-09-14T13:33:13+09:00
+draft: false
 tags: ["reliability", "testing", "openwrt", "fwa", "field-operations"]
 summary: "FWA 단말의 진짜 가치는 스펙이 아니라 기사 출동 없이 끝나는 비율이다. 그래서 출동 원인별 방어 수단을 표로 만들고, 각 행을 measured/armed/inference/gap 네 등급으로 채점했다. 좀비가 된 모뎀은 104초 만에 무인 복구됐다. 표에는 아직 gap 행이 남아 있고, 우리는 그걸 지우지 않고 적어 두었다."
 ---
