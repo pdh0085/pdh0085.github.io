@@ -1,0 +1,157 @@
+# Scheduled publish - flips the next queued post from draft to published.
+#
+# Replaces the local Cowork task that used to run on the author's PC.
+# That task only fired when the desktop app happened to be running, so the
+# publish time drifted to whenever the machine was first used that day
+# (2026-08-26 13:49, 2026-08-28 15:18, 2026-09-04 09:15, 2026-09-07 11:13),
+# and missed slots were never retried. Running it here removes the PC
+# from the critical path entirely.
+#
+# Order comes from publish-queue.md. State comes from the front matter in
+# the repo - no file tracks "what was published", so nothing can drift.
+
+name: Scheduled publish
+
+on:
+  schedule:
+    # 23:00 UTC Sun/Tue/Thu == 08:00 KST Mon/Wed/Fri.
+    # GitHub delays scheduled runs under load; it never fires them early.
+    - cron: "0 23 * * 0,2,4"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Only report the next slug; change nothing"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write   # commit the front matter change
+  actions: write    # dispatch the Pages deploy workflow
+
+concurrency:
+  group: scheduled-publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Pick the next unpublished slug
+        id: pick
+        run: |
+          set -euo pipefail
+          slug=""
+          # Read slugs from publish-queue.md. Only bare slug lines count;
+          # prose, headings and fences are ignored by the pattern.
+          while IFS= read -r line; do
+            case "$line" in \#*) continue ;; esac
+            if ! printf '%s' "$line" | grep -Eq '^[a-z0-9][a-z0-9-]*$'; then
+              continue
+            fi
+            f="content/posts/$line.md"
+            if [ ! -f "$f" ]; then
+              echo "::warning::queue lists $line but $f does not exist"
+              continue
+            fi
+            # Front matter sits at the top; 20 lines is well past it.
+            if head -20 "$f" | grep -qx 'draft: true'; then
+              slug="$line"
+              break
+            fi
+          done < publish-queue.md
+
+          if [ -z "$slug" ]; then
+            echo "queue is empty - every post in publish-queue.md is already published"
+            echo "slug=" >> "$GITHUB_OUTPUT"
+            {
+              echo "### Nothing to publish"
+              echo ""
+              echo "Every slug in \`publish-queue.md\` is already \`draft: false\`."
+              echo "Add new drafts, or switch this workflow off."
+            } >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+
+          echo "next slug: $slug"
+          echo "slug=$slug" >> "$GITHUB_OUTPUT"
+
+      - name: Flip draft to published
+        id: flip
+        if: steps.pick.outputs.slug != '' && inputs.dry_run != true
+        run: |
+          set -euo pipefail
+          slug="${{ steps.pick.outputs.slug }}"
+          # Hugo drops future-dated posts (buildFuture: false), so the date
+          # must be now or earlier - never a scheduled-for time.
+          stamp="$(TZ=Asia/Seoul date +%Y-%m-%dT%H:%M:%S+09:00)"
+          echo "stamp=$stamp" >> "$GITHUB_OUTPUT"
+
+          for f in "content/posts/$slug.md" "content/posts/$slug.ko.md"; do
+            [ -f "$f" ] || continue
+            # 0,/^key/ limits the substitution to the first match, which is
+            # in the front matter. A later 'draft:' inside the body is safe.
+            sed -i "0,/^draft:/s|^draft:.*|draft: false|" "$f"
+            sed -i "0,/^date:/s|^date:.*|date: $stamp|" "$f"
+            echo "--- $f ---"
+            head -5 "$f"
+          done
+
+      - name: Verify the front matter actually changed
+        if: steps.pick.outputs.slug != '' && inputs.dry_run != true
+        run: |
+          set -euo pipefail
+          slug="${{ steps.pick.outputs.slug }}"
+          f="content/posts/$slug.md"
+          grep -qx 'draft: false' "$f" || { echo "::error::$f is still a draft"; exit 1; }
+          grep -q "^date: ${{ steps.flip.outputs.stamp }}$" "$f" || { echo "::error::date not updated in $f"; exit 1; }
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "::error::nothing changed in the working tree"
+            exit 1
+          fi
+
+      - name: Commit and push
+        if: steps.pick.outputs.slug != '' && inputs.dry_run != true
+        run: |
+          set -euo pipefail
+          slug="${{ steps.pick.outputs.slug }}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          # No leading or trailing whitespace - a stray space in the message
+          # made a manual publish hard to trace on 2026-08-28.
+          git commit -m "Publish: $slug"
+          git push
+
+      - name: Trigger the Pages deploy
+        if: steps.pick.outputs.slug != '' && inputs.dry_run != true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          # A push made with GITHUB_TOKEN does not start other workflows, so
+          # hugo.yaml would not run on its own. Dispatch it explicitly.
+          gh workflow run hugo.yaml --ref main
+
+      - name: Summary
+        if: steps.pick.outputs.slug != ''
+        run: |
+          slug="${{ steps.pick.outputs.slug }}"
+          {
+            if [ "${{ inputs.dry_run }}" = "true" ]; then
+              echo "### Dry run"
+              echo ""
+              echo "Next slug would be **$slug**. Nothing was changed."
+            else
+              echo "### Published"
+              echo ""
+              echo "- slug: **$slug**"
+              echo "- date: \`${{ steps.flip.outputs.stamp }}\`"
+              echo "- https://pdh0085.github.io/posts/$slug/"
+              echo "- https://pdh0085.github.io/ko/posts/$slug/"
+              echo ""
+              echo "The Pages deploy runs as a separate workflow; give it a minute or two."
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
