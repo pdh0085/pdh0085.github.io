@@ -1,7 +1,7 @@
 ---
 title: "Dissecting a 190-Second Boot (and Disproving My Own Hypothesis)"
-date: 2026-08-17T10:00:00+09:00
-draft: true
+date: 2026-09-16T09:52:56+09:00
+draft: false
 tags: ["openwrt", "boot-time", "hotplug", "usb", "profiling", "quark-x1000"]
 summary: "The LTE572W takes about 190 seconds to reach init complete. Profiling showed usb-modeswitch eating 25 of them, and the modem's power rail wired to the very end of boot. A code comment gave a 'verified' reason why the modem couldn't be powered earlier. The experiment said otherwise."
 ---

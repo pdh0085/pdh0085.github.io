@@ -1,7 +1,7 @@
 ---
 title: "부팅 190초를 뜯어보다, 그리고 내 가설을 반증하다"
-date: 2026-08-17T10:00:00+09:00
-draft: true
+date: 2026-09-16T09:52:56+09:00
+draft: false
 tags: ["openwrt", "boot-time", "hotplug", "usb", "profiling", "quark-x1000"]
 summary: "LTE572W의 부팅은 init complete까지 약 190초 걸린다. 프로파일을 떠 보니 usb-modeswitch가 25초를 먹고 있었고, 모뎀 전원은 부팅 맨 끝에 있었다. 코드 주석에는 '일찍 켜면 안 되는 검증된 이유'가 적혀 있었는데, 실험해 보니 사실이 아니었다."
 ---
