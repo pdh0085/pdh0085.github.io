@@ -1,7 +1,7 @@
 ---
 title: "When the Modem Says 'Connected'"
-date: 2026-08-17T10:00:00+09:00
-draft: true
+date: 2026-09-18T09:53:20+09:00
+draft: false
 tags: ["openwrt", "modemmanager", "qmi", "lte", "quark-x1000", "debugging"]
 summary: "The modem reported connected, and wwan0 had an IP address and a default route. Not a single packet went out. Two silent failure modes of an LTE modem on a 400 MHz single-core board, both with perfectly green status indicators, both only detectable by pushing real traffic."
 ---

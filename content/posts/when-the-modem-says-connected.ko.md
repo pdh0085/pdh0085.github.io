@@ -1,7 +1,7 @@
 ---
 title: "모뎀이 '연결됨'이라고 거짓말할 때"
-date: 2026-08-17T10:00:00+09:00
-draft: true
+date: 2026-09-18T09:53:20+09:00
+draft: false
 tags: ["openwrt", "modemmanager", "qmi", "lte", "quark-x1000", "debugging"]
 summary: "모뎀은 connected였고, wwan0에는 IP와 기본 경로까지 있었다. 그런데 패킷은 한 개도 나가지 않았다. 400 MHz 단일 코어 보드에서 겪은 LTE 모뎀의 조용한 실패 두 가지. 상태 표시는 둘 다 정상이었고, 확인 방법은 실제 트래픽뿐이었다."
 ---
