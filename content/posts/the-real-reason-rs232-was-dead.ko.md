@@ -1,7 +1,7 @@
 ---
 title: "RS-232가 안 나오던 진짜 이유"
-date: 2026-08-17T10:00:00+09:00
-draft: true
+date: 2026-09-21T09:38:17+09:00
+draft: false
 tags: [openwrt, rs232, gpio, quark-x1000, debugging, serial]
 summary: "산업용 시리얼 포트에서 RS-232 신호가 나오지 않았다. 문서에는 '트랜시버 충전 펌프 불량'이라고 적혀 있었다. 정상 동작하는 Yocto 펌웨어의 GPIO 세 개를 읽어보니 0/0/1인데 우리는 1/0/0을 구동하고 있었다. 칩은 멀쩡했다."
 ---

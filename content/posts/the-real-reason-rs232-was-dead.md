@@ -1,7 +1,7 @@
 ---
 title: "The Real Reason RS-232 Was Dead"
-date: 2026-08-17T10:00:00+09:00
-draft: true
+date: 2026-09-21T09:38:17+09:00
+draft: false
 tags: [openwrt, rs232, gpio, quark-x1000, debugging, serial]
 summary: "The industrial serial port produced no RS-232 signal, and the internal docs blamed a dead charge pump in the transceiver. Then we read the three mode GPIOs from the known-good Yocto firmware: 0/0/1. Ours were driving 1/0/0. The chip was fine."
 ---
