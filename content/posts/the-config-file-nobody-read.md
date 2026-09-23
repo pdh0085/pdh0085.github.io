@@ -1,7 +1,7 @@
 ---
 title: "The Config File Nobody Read"
-date: 2026-08-17T10:00:00+09:00
-draft: true
+date: 2026-09-23T10:02:14+09:00
+draft: false
 tags: ["openwrt", "frr", "uci", "ospf", "procd", "quark-x1000"]
 summary: "Saving OSPF settings in the web UI succeeded without a single error, and the routing daemons never heard about any of it, because the file the pages wrote to was never read by anyone. This is the story of rebuilding that pipeline on UCI, and of a detached restart that inherited fd 1000 and froze every start/reload forever."
 ---
