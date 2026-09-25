@@ -1,7 +1,7 @@
 ---
 title: "Rebuilding the Web UI on LuCI"
-date: 2026-08-17T10:00:00+09:00
-draft: true
+date: 2026-09-25T10:00:38+09:00
+draft: false
 tags: ["openwrt", "luci", "web-ui", "rpcd", "vnstat", "playwright"]
 summary: "We rebuilt the LTE572W's web UI on top of LuCI. The screens themselves are the short part of the story. The real content is a secret value with all three delivery paths blocked, custom UI that vanished on every save, and a counter bug that inflated data usage by exactly 2^32 bytes (4 GiB) per reboot."
 ---

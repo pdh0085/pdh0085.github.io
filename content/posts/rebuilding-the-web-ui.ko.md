@@ -1,7 +1,7 @@
 ---
 title: "LuCI 위에서 웹 UI를 다시 짓다"
-date: 2026-08-17T10:00:00+09:00
-draft: true
+date: 2026-09-25T10:00:38+09:00
+draft: false
 tags: ["openwrt", "luci", "web-ui", "rpcd", "vnstat", "playwright"]
 summary: "LTE572W의 웹 UI를 LuCI 기반으로 다시 만들었다. 화면 이야기는 짧다. 본론은 비밀값 하나를 저장하는 세 가지 경로가 전부 막혀 있던 일, 저장할 때마다 사라지던 UI, 그리고 재부팅마다 데이터 사용량을 정확히 2^32바이트(4 GiB)씩 부풀리던 카운터 버그다."
 ---
