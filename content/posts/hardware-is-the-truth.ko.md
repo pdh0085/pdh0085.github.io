@@ -1,7 +1,7 @@
 ---
 title: "에필로그: 하드웨어가 진실이다"
-date: 2026-08-17T10:00:00+09:00
-draft: true
+date: 2026-09-28T10:17:29+09:00
+draft: false
 tags: ["openwrt", "quark-x1000", "embedded", "debugging", "retrospective"]
 summary: "포팅은 3.0.0 릴리스로 끝났다. 돌아보면 가장 비쌌던 건 어려운 버그가 아니라 \"147 MB를 확보했다\", \"검증됨\" 같은 틀린 기록이었다. 이 시리즈에서 반증된 확신 네 개와, 그 자리를 대신한 습관들."
 ---

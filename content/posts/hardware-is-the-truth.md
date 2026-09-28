@@ -1,7 +1,7 @@
 ---
 title: "Epilogue: Hardware Is the Truth"
-date: 2026-08-17T10:00:00+09:00
-draft: true
+date: 2026-09-28T10:17:29+09:00
+draft: false
 tags: ["openwrt", "quark-x1000", "embedded", "debugging", "retrospective"]
 summary: "The port ended with the 3.0.0 release. Looking back, the most expensive thing was never a hard bug. It was wrong records like \"freed about 147 MB\" and \"verified\". The four beliefs this series disproved, and the habits that replaced them."
 ---
