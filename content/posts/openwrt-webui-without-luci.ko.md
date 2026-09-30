@@ -1,7 +1,7 @@
 ---
 title: "LuCI를 버리고 얻은 것"
-date: 2026-08-17T10:00:00+09:00
-draft: true
+date: 2026-09-30T10:43:53+09:00
+draft: false
 tags: ["openwrt", "luci", "web-ui", "performance", "embedded"]
 summary: "MT7628(580MHz MIPS, 8MB 플래시) 라우터에서 LuCI 디스패처는 페이지 이동마다 430ms를 먹고 있었다. LuCI를 이미지에서 완전히 걷어내고 정적 파일 + /ubus JSON-RPC만으로 런타임을 다시 썼다. 로그인은 459ms에서 48ms로 줄었고, 기존 뷰 57개는 한 줄도 고치지 않았다."
 ---
