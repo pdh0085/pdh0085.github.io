@@ -1,7 +1,7 @@
 ---
 title: "Chasing 320MHz Into the Kernel"
-date: 2026-08-17T10:00:00+09:00
-draft: true
+date: 2026-10-02T10:52:15+09:00
+draft: false
 tags: [wifi7, mt7927, mac80211, cfg80211, ftrace, kprobe, linux, debugging]
 summary: "The AP, the regulatory rules and the adapter all said 320MHz, and the negotiation still stopped at 160. The kernel message blamed regulatory; every tool I had said there was no restriction on the channel. Neither was true. The culprit was a country restriction table living in the firmware, and the flag it set was invisible from user space."
 ---
