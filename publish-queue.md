@@ -41,9 +41,10 @@ rebuilding-the-web-ui
 hardware-is-the-truth
 openwrt-webui-without-luci
 chasing-320mhz-into-the-kernel
+openwrt-25-12-on-a-legacy-am335x-router
 ```
 
-24편. 2026-09-14 기준 15편 발행 / 9편 대기.
+25편. 2026-10-13 기준 25편 모두 발행.
 
 `chasing-320mhz-into-the-kernel`은 LTE572W 연재가 아니라 MT7927 Wi-Fi 7 단발 기록이다.
 사용자 결정으로 맨 마지막에 배치했다. 앞으로 당기려면 위 목록에서 위치만 옮기면 된다.
