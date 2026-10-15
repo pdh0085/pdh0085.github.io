@@ -138,7 +138,7 @@ L2TP/IPsec 클라이언트에서 IPsec 자식 SA가 닫히면, xl2tpd의 keepali
 - **XMPP:** 장비가 XMPP 서버에 먼저 접속해 연결을 유지하고, connection request를 그 연결로 받는다. 형식이 잘못된 요청에도 클라이언트가 죽지 않게 했고, 허용 목록은 JID가 정확히 일치할 때만 받는다. 연결이 끊기면 대기 시간을 최대 30분까지 늘려 가며 끝없이 다시 접속한다.
 - **STUN (TR-111 Annex G):** 서버가 `STUNEnable`을 켜기 전까지는 꺼져 있다. 켜지면 장비가 STUN으로 자기 공인 주소를 알아내고, 서버는 UDP connection request로 장비를 깨울 수 있다. STUN이 켜져 있는 동안 WAN 방화벽은 STUN 서버 주소에서 온 UDP connection request만 받아들인다. NAT 바인딩이 만료된 뒤에 도착한 요청도 들어오게 하려는 규칙이다.
 
-TR-181 쪽도 같이 정리했다. `NATDetected`는 예전에는 항상 1이었는데, 이제 STUN이 꺼져 있으면 0을 읽는다. `SupportedConnReqMethods`는 실제로 설치된 방법(HTTP, XMPP, STUN)만 보여 준다. 같은 시기에 주기적 Inform 간격 기본값도 60초에서 900초로 늘렸다. 서버나 사용자가 정한 값은 그대로 둔다.
+TR-181 쪽도 같이 정리했다. `NATDetected`는 예전에는 항상 1이었는데, 이제 STUN이 꺼져 있으면 0을 읽는다. `SupportedConnReqMethods`는 실제로 설치된 방법(HTTP, XMPP, STUN)만 보여 준다. 서버가 필요할 때 장비를 바로 깨울 수 있게 되면서, 주기적 Inform을 자주 보낼 이유도 줄었다. 그래서 기본 간격을 60초에서 900초로 늘렸다. 서버나 사용자가 정한 값은 그대로 둔다.
 
 외부망의 NAT 뒤에 둔 벤치 장비 두 대에서 확인했다. 서버가 요청을 보낸 뒤 장비의 Inform이 도착하기까지 STUN을 통한 UDP 요청은 1.1초, XMPP도 1.1초였다.
 
