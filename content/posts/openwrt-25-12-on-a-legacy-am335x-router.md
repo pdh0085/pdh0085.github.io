@@ -129,6 +129,21 @@ Sending a person to one field unit costs more than the unit itself. So the goal 
 
 While filling in this list, I found that the reset button did nothing at all. That is the fourth row of the GPIO table above.
 
+## Waking units behind NAT (added 2026-10-15)
+
+Most units in the field sit behind NAT. In TR-069, the connection request, where the remote management server tells a unit "connect now", is by default an HTTP request from the server to the unit, so it never reaches a unit behind NAT. Until now the only option was to wait for the unit's next Inform.
+
+A later firmware release added official support for two ways through NAT.
+
+- **XMPP:** the unit connects to an XMPP server first, keeps that connection open, and receives connection requests over it. A malformed request no longer crashes the client, and the allow-list only accepts an exact JID match. If the connection drops, the client reconnects for ever, backing off up to 30 minutes between attempts.
+- **STUN (TR-111 Annex G):** off until the server sets `STUNEnable`. Once on, the unit learns its public address via STUN, and the server can wake it with a UDP connection request. While STUN is on, the WAN firewall accepts UDP connection requests only from the STUN server's address. The rule is there so that a request arriving after the NAT binding has aged out still gets in.
+
+The TR-181 side was cleaned up at the same time. `NATDetected` used to read 1 unconditionally; it now reads 0 while STUN is off. `SupportedConnReqMethods` lists only what is actually installed (HTTP, XMPP, STUN). Around the same time, the default periodic Inform interval went from 60 seconds to 900 seconds; a value set by the server or the user is kept.
+
+I checked this on two bench units behind NAT on an outside network. From the server sending the request to the unit's Inform arriving took 1.1 seconds for the UDP request via STUN, and 1.1 seconds for XMPP.
+
+The STUN firewall rule itself has not been exercised yet, though. In the test, the UDP request arrived within the NAT binding's lifetime and came in on the STUN client's own connection. Whether a request arriving after the binding has expired actually gets in is still untested. Lesson 2 below applies here exactly.
+
 ## Lessons, looking back
 
 1. **A surprising measurement is a reason to suspect the measuring tool before it is a discovery.** The SMTP string search, a truncated list output and a wrong md5 constant all produced "plausible results".
