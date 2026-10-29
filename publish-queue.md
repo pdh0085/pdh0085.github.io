@@ -41,7 +41,7 @@ rebuilding-the-web-ui
 hardware-is-the-truth
 openwrt-webui-without-luci
 chasing-320mhz-into-the-kernel
-openwrt-25-12-on-a-legacy-am335x-router
+from-linux-3-2-to-openwrt-25-12
 ```
 
 25편. 2026-10-13 기준 25편 모두 발행.
