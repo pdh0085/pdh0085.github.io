@@ -2,7 +2,10 @@
 title: "Getting the Root Filesystem Out of RAM"
 date: 2026-08-28T15:18:38+09:00
 draft: false
-tags: ["openwrt", "quark-x1000", "squashfs", "initramfs", "oom", "embedded"]
+tags: [openwrt, quark-x1000, filesystem, kernel]
+categories: [porting]
+series: [lte572w-yocto-to-openwrt]
+series_part: 4
 summary: "Firmware uploads through the web UI were dying with HTTP 502. The web server was innocent. The root filesystem was sitting in RAM, with about 70 MB of /rom pinned and unreclaimable, and zram didn't help. The fix was moving the root onto a loop-mounted squashfs, and along the way admitting that an old claim of '~147 MB freed' had never been true."
 ---
 

@@ -2,7 +2,8 @@
 title: "Four Grades of 'It Works': measured, armed, inference, gap"
 date: 2026-09-14T13:33:13+09:00
 draft: false
-tags: ["reliability", "testing", "openwrt", "fwa", "field-operations"]
+tags: [openwrt, fwa, reliability, testing]
+categories: [remote-management]
 summary: "The real value of an FWA device isn't its spec sheet; it's the fraction of incidents that end without a truck roll. So we built a table of truck-roll causes and their defenses, and graded every row measured, armed, inference, or gap. A zombie modem recovered unattended in 104 seconds. The table still has gap rows, and we wrote them down instead of erasing them."
 ---
 

@@ -1,0 +1,25 @@
+{{- /*
+  Series index: each series with its description and its parts in reading
+  order (series_part, then date).
+*/ -}}
+{{- define "main" }}
+<header class="page-header">
+  <h1>{{ .Title }}</h1>
+  {{- with .Description }}
+  <div class="post-description">{{ . }}</div>
+  {{- end }}
+</header>
+<div class="term-index">
+  {{- range .Pages.ByTitle }}
+  <section>
+    <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a> <sup>{{ len .Pages }}</sup></h2>
+    {{- with .Description }}<p class="term-desc">{{ . }}</p>{{ end }}
+    <ol>
+      {{- range sort .Pages.ByDate "Params.series_part" }}
+      <li><a href="{{ .RelPermalink }}">{{ .Title }}</a><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time></li>
+      {{- end }}
+    </ol>
+  </section>
+  {{- end }}
+</div>
+{{- end }}

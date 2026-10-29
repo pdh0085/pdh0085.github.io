@@ -1,0 +1,26 @@
+{{- /*
+  Topics index: every category in weight order, with its description and
+  the posts filed under it (newest first). Replaces the theme's tag-cloud
+  style list so readers can browse the blog by subject on one page.
+*/ -}}
+{{- define "main" }}
+<header class="page-header">
+  <h1>{{ .Title }}</h1>
+  {{- with .Description }}
+  <div class="post-description">{{ . }}</div>
+  {{- end }}
+</header>
+<div class="term-index">
+  {{- range .Pages.ByWeight }}
+  <section>
+    <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a> <sup>{{ len .Pages }}</sup></h2>
+    {{- with .Description }}<p class="term-desc">{{ . }}</p>{{ end }}
+    <ul>
+      {{- range .Pages.ByDate.Reverse }}
+      <li><a href="{{ .RelPermalink }}">{{ .Title }}</a><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time></li>
+      {{- end }}
+    </ul>
+  </section>
+  {{- end }}
+</div>
+{{- end }}

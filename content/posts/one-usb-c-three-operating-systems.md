@@ -2,7 +2,8 @@
 title: "One USB-C Port, Three Operating Systems"
 date: 2026-08-24T08:11:52+09:00
 draft: false
-tags: ["usb", "usb-gadget", "embedded", "networking", "performance", "5g"]
+tags: [5g, usb, networking, performance]
+categories: [cellular-networking]
 summary: "Our 5G CPE had to enumerate as a network device on Windows, macOS, and Linux, driver-free. ECM covered Mac and Linux, RNDIS covered Windows, and putting both in made the hardware refuse. This is the story of finding the one answer that satisfies all three, and of distrusting our own first benchmark: 900 Mbit/s that turned out to be a lie. The real numbers were 315/365 Mbit/s, the practical ceiling of USB 2.0."
 ---
 

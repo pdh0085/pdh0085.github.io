@@ -2,7 +2,8 @@
 title: "리눅스 3.2에서 OpenWrt 25.12로: MA-2080X 셀룰러 라우터 포팅기"
 date: 2026-10-29T09:44:43+09:00
 draft: false
-tags: [openwrt, embedded, am335x, u-boot, firmware-update, reliability, debugging, ucode]
+tags: [openwrt, u-boot, firmware-update, hardware, ucode, build-system]
+categories: [porting]
 summary: "산업용 셀룰러 라우터 MA-2080X를 벤더 리눅스 3.2 펌웨어에서 OpenWrt 25.12.5로 옮긴 약 7주의 기록. 되돌릴 수 없는 변경은 한 번에 하나씩, 벤더 펌웨어 기능 따라잡기, 조용히 실패한 버그들, 그리고 이 결과물이 출시되지 않는 이유."
 aliases: ["/ko/posts/openwrt-25-12-on-a-legacy-am335x-router/"]
 ---

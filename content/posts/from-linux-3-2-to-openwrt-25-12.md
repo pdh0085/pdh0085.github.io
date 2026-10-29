@@ -2,7 +2,8 @@
 title: "From Linux 3.2 to OpenWrt 25.12: Porting the MA-2080X Cellular Router"
 date: 2026-10-29T09:44:43+09:00
 draft: false
-tags: [openwrt, embedded, am335x, u-boot, firmware-update, reliability, debugging, ucode]
+tags: [openwrt, u-boot, firmware-update, hardware, ucode, build-system]
+categories: [porting]
 summary: "About seven weeks moving the MA-2080X industrial cellular router off its vendor Linux 3.2 firmware and onto OpenWrt 25.12.5: one irreversible change at a time, feature parity with the vendor firmware, the bugs that failed silently, and why the result will not ship."
 aliases: ["/posts/openwrt-25-12-on-a-legacy-am335x-router/"]
 ---

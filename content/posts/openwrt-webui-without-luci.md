@@ -2,7 +2,8 @@
 title: "What Dropping LuCI Bought Us"
 date: 2026-09-30T10:43:53+09:00
 draft: false
-tags: ["openwrt", "luci", "web-ui", "performance", "embedded"]
+tags: [openwrt, web-ui, ucode, performance]
+categories: [web-ui]
 summary: "On an MT7628 router (580 MHz MIPS, 8 MB flash), the LuCI dispatcher was charging 430 ms per page navigation. We removed LuCI from the image entirely and rewrote the runtime on nothing but static files and /ubus JSON-RPC. Login went from 459 ms to 48 ms, and all 57 existing views run unmodified."
 ---
 

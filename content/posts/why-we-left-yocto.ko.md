@@ -2,7 +2,10 @@
 title: "잘 돌아가던 펌웨어를 버렸다"
 date: 2026-08-19T10:06:49+09:00
 draft: false
-tags: ["openwrt", "yocto", "quark-x1000", "embedded", "porting"]
+tags: [openwrt, yocto, quark-x1000]
+categories: [porting]
+series: [lte572w-yocto-to-openwrt]
+series_part: 1
 summary: "LTE572W는 Intel Quark X1000, 단일 코어 400 MHz, RAM 256 MB 위에서 돈다. 출하 펌웨어는 잘 돌아가는 Yocto 이미지였다. 그걸 OpenWrt 25.12로 전부 갈아엎기로 했다. 이 결정의 이유와, 이후 이야기 전부를 지배하게 될 세 가지 제약에 대하여."
 ---
 

@@ -1,0 +1,50 @@
+{{- /*
+  Series box: shown after the post body on every post that belongs to a
+  series. Order comes from the series_part front matter value, falling back
+  to the publish date, so a series reads in the order it was written even if
+  a part is republished later.
+*/ -}}
+{{- $page := . }}
+{{- $ko := eq $page.Lang "ko" }}
+{{- range $page.GetTerms "series" }}
+  {{- $term := . }}
+  {{- $parts := slice }}
+  {{- range $term.Pages.ByDate }}
+    {{- $parts = $parts | append . }}
+  {{- end }}
+  {{- $parts = sort $parts "Params.series_part" }}
+  {{- $total := len $parts }}
+  {{- $idx := -1 }}
+  {{- range $i, $p := $parts }}
+    {{- if eq $p.RelPermalink $page.RelPermalink }}{{ $idx = $i }}{{ end }}
+  {{- end }}
+  <nav class="series-box" aria-label="{{ if $ko }}연재 목차{{ else }}Series contents{{ end }}">
+    <p class="series-head">
+      {{- if $ko }}
+      연재 <a href="{{ $term.RelPermalink }}">{{ $term.Title }}</a> · 전체 {{ $total }}편 중 {{ add $idx 1 }}편
+      {{- else }}
+      Part {{ add $idx 1 }} of {{ $total }} in the series <a href="{{ $term.RelPermalink }}">{{ $term.Title }}</a>
+      {{- end }}
+    </p>
+    <div class="series-step">
+      {{- if gt $idx 0 }}
+      {{- with index $parts (sub $idx 1) }}
+      <a class="series-prev" href="{{ .RelPermalink }}">← {{ if $ko }}이전 편{{ else }}Previous{{ end }}: {{ .Title }}</a>
+      {{- end }}
+      {{- end }}
+      {{- if lt (add $idx 1) $total }}
+      {{- with index $parts (add $idx 1) }}
+      <a class="series-next" href="{{ .RelPermalink }}">{{ if $ko }}다음 편{{ else }}Next{{ end }}: {{ .Title }} →</a>
+      {{- end }}
+      {{- end }}
+    </div>
+    <details>
+      <summary>{{ if $ko }}전체 목차{{ else }}All parts{{ end }}</summary>
+      <ol>
+        {{- range $i, $p := $parts }}
+        <li>{{ if eq $i $idx }}<strong>{{ $p.Title }}</strong>{{ else }}<a href="{{ $p.RelPermalink }}">{{ $p.Title }}</a>{{ end }}</li>
+        {{- end }}
+      </ol>
+    </details>
+  </nav>
+{{- end }}

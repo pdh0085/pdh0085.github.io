@@ -2,7 +2,10 @@
 title: "Two Recovery Paths That Were Silently Dead"
 date: 2026-09-09T08:11:06+09:00
 draft: false
-tags: [openwrt, sysupgrade, factory-reset, procd, shell-scripting, embedded]
+tags: [openwrt, quark-x1000, firmware-update, recovery, init-scripts]
+categories: [updates-recovery]
+series: [lte572w-yocto-to-openwrt]
+series_part: 6
 summary: "`sysupgrade -n` had never once wiped the configuration, and factory reset was broken twice, for two different reasons. Both reported success without doing anything. One died at a process boundary; the other because a volume abstraction confidently declared 256 KB of alignment padding to be rootfs_data."
 ---
 

@@ -2,7 +2,8 @@
 title: "포트 포워딩 버그가 아니었다: LTE 회선의 조용한 MTU 장애"
 date: 2026-08-16T16:20:00+09:00
 draft: false
-tags: ["lte", "networking", "mtu", "debugging", "port-forwarding"]
+tags: [lte, networking, debugging]
+categories: [cellular-networking]
 summary: "LTE 라우터 뒤의 IP 카메라에 외부 접속이 계속 죽는데, 라우터 자신의 웹 UI는 외부에서 멀쩡히 열렸다. 포트 포워딩 규칙은 죄가 없었다. 큰 TCP 세그먼트가 LTE 구간에서 손상된 채 나오고 있었고, WAN MTU를 1400으로 내리자 전부 동작했다."
 ---
 

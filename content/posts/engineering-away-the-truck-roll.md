@@ -2,7 +2,8 @@
 title: "Engineering Away the Truck Roll"
 date: 2026-09-11T12:33:38+09:00
 draft: false
-tags: [5g, cpe, reliability, self-healing, tr-069, fleet-operations]
+tags: [5g, fwa, tr-069, reliability]
+categories: [remote-management]
 summary: "We worked backwards from every situation that forces a field visit and built five guards into our 5G CPE. The hard part was never the fixing logic; it was the stopping conditions. A recovery feature that doesn't know when to stop isn't recovery, it's a new outage."
 ---
 

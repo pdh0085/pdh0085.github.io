@@ -2,7 +2,10 @@
 title: "Building an i586 Toolchain in 2026"
 date: 2026-08-21T08:10:06+09:00
 draft: false
-tags: ["openwrt", "toolchain", "gcc", "musl", "quark-x1000", "i586"]
+tags: [openwrt, quark-x1000, build-system]
+categories: [porting]
+series: [lte572w-yocto-to-openwrt]
+series_part: 2
 summary: "The Quark X1000 is an i586 with no MMX, no SSE, and an x87 FPU. The first OpenWrt toolchain build for it broke not in the compiler but in libc's fabs(). The problem wasn't a missing instruction; it was a wrong default. Verification meant scanning 285 build artifacts."
 ---
 

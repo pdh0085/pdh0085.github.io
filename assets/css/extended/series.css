@@ -1,0 +1,75 @@
+/* Series box shown after posts that belong to a multi-part series */
+.series-box {
+  margin: 32px 0 8px;
+  padding: 14px 18px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius, 8px);
+  background: var(--entry);
+  font-size: 0.95em;
+}
+.series-box .series-head {
+  margin: 0 0 8px;
+  font-weight: 600;
+}
+.series-box .series-step {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 6px 16px;
+  margin-bottom: 6px;
+}
+.series-box .series-next {
+  margin-left: auto;
+  text-align: right;
+}
+.series-box a {
+  box-shadow: none;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.series-box details summary {
+  cursor: pointer;
+  color: var(--secondary);
+}
+.series-box ol {
+  margin: 8px 0 0;
+  padding-left: 2.2em;
+}
+.series-box li {
+  margin: 2px 0;
+}
+
+/* Topic and series index pages: one block per term with its posts */
+.term-index section {
+  margin: 0 0 36px;
+}
+.term-index h2 {
+  margin: 0 0 4px;
+  font-size: 1.35em;
+}
+.term-index h2 a {
+  box-shadow: none;
+}
+.term-index .term-desc {
+  margin: 0 0 10px;
+  color: var(--secondary);
+}
+.term-index ul,
+.term-index ol {
+  margin: 0;
+  padding-left: 2.2em;
+}
+.term-index li {
+  margin: 4px 0;
+}
+.term-index li a {
+  box-shadow: none;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.term-index time {
+  color: var(--secondary);
+  font-size: 0.85em;
+  margin-left: 6px;
+  white-space: nowrap;
+}

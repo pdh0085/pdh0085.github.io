@@ -16,6 +16,12 @@ minify:
   disableXML: true
   minifyOutput: true
 
+# Taxonomies: topics (categories), free tags, and multi-part series
+taxonomies:
+  category: categories
+  tag: tags
+  series: series
+
 # Shared params (inherited by both languages unless overridden)
 params:
   env: production
@@ -59,6 +65,14 @@ languages:
           name: Posts
           url: /posts/
           weight: 10
+        - identifier: categories
+          name: Topics
+          url: /categories/
+          weight: 14
+        - identifier: series
+          name: Series
+          url: /series/
+          weight: 17
         - identifier: tags
           name: Tags
           url: /tags/
@@ -83,6 +97,14 @@ languages:
           name: 글
           url: /posts/
           weight: 10
+        - identifier: categories
+          name: 주제
+          url: /categories/
+          weight: 14
+        - identifier: series
+          name: 연재
+          url: /series/
+          weight: 17
         - identifier: tags
           name: 태그
           url: /tags/

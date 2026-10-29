@@ -2,7 +2,10 @@
 title: "아무도 읽지 않는 설정 파일"
 date: 2026-09-23T10:02:14+09:00
 draft: false
-tags: ["openwrt", "frr", "uci", "ospf", "procd", "quark-x1000"]
+tags: [openwrt, quark-x1000, networking, init-scripts]
+categories: [cellular-networking]
+series: [lte572w-yocto-to-openwrt]
+series_part: 11
 summary: "웹 UI에서 OSPF를 저장하면 에러 없이 저장됐다. 그런데 라우팅 데몬은 아무것도 몰랐다. 페이지가 쓰던 파일을 아무도 읽지 않았기 때문이다. UCI 생성기로 소유권을 다시 세우고, 분리 실행한 재시작이 fd 1000을 물고 늘어져 이후 모든 start/reload를 멈추게 한 함정까지."
 ---
 
