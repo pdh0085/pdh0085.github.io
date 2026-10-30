@@ -13,8 +13,8 @@ summary: "LTE572W의 부팅은 init complete까지 약 190초 걸린다. 프로�
 
 ## 출발점
 
-이 보드의 부팅은 `init complete`까지 약 190초 걸린다. 그리고 유휴 상태
-loadavg가 4쯤 된다. 400 MHz 단일 코어니까 어느 정도는 어쩔 수 없다고 칠 수
+이 보드는 `init complete`까지 오래 걸린다(이 편의 수정을 모두 마친 뒤에도
+약 190초). 그리고 유휴 상태 loadavg가 4쯤 된다. 400 MHz 단일 코어니까 어느 정도는 어쩔 수 없다고 칠 수
 있지만, loadavg 4는 다른 말로 하면 뭔가가 계속 일을 하고 있다는 뜻이다.
 어쩔 수 없는 느림과 낭비되는 느림을 구분하려면 일단 재야 한다.
 
@@ -52,7 +52,8 @@ trap 'echo "rc: << $1 $2" > /dev/kmsg' EXIT
 매 실행마다 55 KB / 3,359줄짜리 `/etc/usb-mode.json`을 처음부터 다시 파싱한다.
 이 CPU에서 1회 약 1초.
 
-측정된 실제 모습은 이랬다.
+측정된 실제 모습은 이랬다. 모뎀 전원을 이미 S11로 옮긴 뒤(아래 범인 2),
+usb-modeswitch를 지우기 전에 잰 것이다.
 
 ```
 51s        모뎀이 USB에 등장
@@ -129,15 +130,16 @@ glib+dbus 바이너리라 이 코어에서 한 번에 6~9초, 버스가 아직 �
 
 ## 아직 안 끝났다
 
-여기까지 하고도 `init complete`까지는 여전히 약 190초다. 전/후 타임라인을
+여기까지 하고도 `init complete`까지는 여전히 약 190초다. 세 단계를
 겹쳐 보면 이렇다.
 
 ```
-이전:  3s Wi-Fi 열거 … 51s 모뎀 USB … 96s usbmode 종료
-       … 102s eth0 … 115s Wi-Fi AP … ~190s init complete
-이후:  3s Wi-Fi 열거 … 50s 모뎀 USB (전원 S11) … 90.5s Wi-Fi AP
-       … ~190s init complete
-       (usb-modeswitch 제거로 −25초, 부팅 중 mmcli 포크 23 → 0)
+출발점 (전원 S99):        … ~162s 모뎀 USB … 87.5s Wi-Fi AP
+전원 S11,                 3s Wi-Fi 열거 … 51s 모뎀 USB … 96s usbmode 종료
+ usb-modeswitch 있음:     … 102s eth0 … 115s Wi-Fi AP
+두 수정 후:               3s Wi-Fi 열거 … 50s 모뎀 USB … 90.5s Wi-Fi AP
+                          … ~190s init complete
+(usb-modeswitch 제거로 −25초, 부팅 중 mmcli 포크 23 → 0)
 ```
 
 | 지표 | 전 | 후 |
@@ -146,7 +148,8 @@ glib+dbus 바이너리라 이 코어에서 한 번에 6~9초, 버스가 아직 �
 | Wi-Fi AP (`phy0-ap0`) | 87.5초 | 90.5초 |
 | 부팅 중 `mmcli` 포크 | 23회 | 0회 |
 
-모뎀은 112초 일찍 나타나고 낭비되던 일은 사라졌는데 총 시간이 왜 그대로인가.
+모뎀은 112초 일찍 나타나고 낭비되던 일은 사라졌는데 왜 `init complete`는
+여전히 약 190초인가.
 rc.common 프로파일에 남은 큰 덩어리들이 그대로 보인다. S95frr 약 30초,
 S10boot 약 16초, S80ucitrack 약 12초, S19firewall 약 11초, 그리고 후반부에
 sysntpd/mwan3/dnsmasq/firewall 같은 것들이 반복 재호출되는 구간. 이것들은

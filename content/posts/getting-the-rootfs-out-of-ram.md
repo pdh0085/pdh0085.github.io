@@ -140,9 +140,11 @@ freed." **That number was never true, and it was later corrected.**
 Steady-state `MemAvailable` is essentially unchanged, because those 67 MB
 were being returned by `free_initmem()` at the end of boot anyway. The
 metrics that actually moved are peak boot RAM and the reclaimability of
-`/rom` during an upload burst, and it's the latter that killed the OOM. The
-most common lie in optimization write-ups is picking the metric that looks
-like it improved.
+`/rom` during an upload burst, and it's the latter, the move to squashfs and
+not the loader shrink, that killed the OOM. The most common lie in
+optimization write-ups is picking the metric that looks like it improved.
+One more caveat: the ~81 MB in the reproduction table and the ~116–134 MB
+above were measured on different images, so they don't compare directly.
 
 ## Verification, and the Next Wall
 

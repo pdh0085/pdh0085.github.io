@@ -70,9 +70,9 @@ very rule this table exists to enforce.
 But the real ending of this case isn't the number. The drill caught a
 defect. The reset procedure started checking for USB presence immediately
 after the reset, at which point the pre-reset enumeration was still
-lingering, so it read "ready in 0 seconds." The actual module only dropped
-off the bus 31 seconds later, and the watchdog logic misdiagnosed that as a
-zombie. So every hardware reset was silently escalating straight to a power
+lingering, so it read "ready in 0 seconds." The actual module dropped off
+the bus about a second later, but the watchdog only noticed at its next
+check, 31 seconds later, and misdiagnosed the missing module as a zombie. So every hardware reset was silently escalating straight to a power
 cycle: a two-rung recovery ladder collapsed into one.
 
 The fix was ordering. First wait for the module to disappear from the bus,

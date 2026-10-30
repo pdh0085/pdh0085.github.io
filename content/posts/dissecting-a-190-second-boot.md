@@ -13,8 +13,8 @@ summary: "The LTE572W takes about 190 seconds to reach init complete. Profiling 
 
 ## The Starting Point
 
-This board takes about 190 seconds to reach `init complete`, and it idles at a
-loadavg of about 4. On a single 400 MHz core some of that is unavoidable, but
+This board is slow to reach `init complete` (still about 190 seconds after
+everything in this post), and it idles at a loadavg of about 4. On a single 400 MHz core some of that is unavoidable, but
 a loadavg of 4 also means something is doing work. To separate the slowness
 you're stuck with from the slowness you're paying for, you first have to
 measure.
@@ -54,7 +54,9 @@ one modem generates ten of those: one device plus nine interfaces. Each run
 re-parses the 55 KB, 3,359-line `/etc/usb-mode.json` from scratch, which
 costs about a second on this CPU.
 
-Here is what the measurement actually showed:
+Here is what the measurement actually showed. It was taken after the modem
+power had already moved to S11 (culprit 2 below) and before usb-modeswitch
+was removed:
 
 ```
 51s        modem appears on USB
@@ -140,14 +142,15 @@ full story is in that earlier post.
 ## Not Done Yet
 
 After all of this, `init complete` still lands at about 190 seconds. Overlaid,
-the before/after timelines look like this:
+the three stages look like this:
 
 ```
-before:  3s Wi-Fi enum … 51s modem USB … 96s usbmode done
-         … 102s eth0 … 115s Wi-Fi AP … ~190s init complete
-after:   3s Wi-Fi enum … 50s modem USB (power at S11) … 90.5s Wi-Fi AP
-         … ~190s init complete
-         (usb-modeswitch removal: −25 s; mmcli forks during boot: 23 → 0)
+start (power at S99):    … ~162s modem USB … 87.5s Wi-Fi AP
+power at S11,            3s Wi-Fi enum … 51s modem USB … 96s usbmode done
+ usb-modeswitch present: … 102s eth0 … 115s Wi-Fi AP
+after both fixes:        3s Wi-Fi enum … 50s modem USB … 90.5s Wi-Fi AP
+                         … ~190s init complete
+(usb-modeswitch removal: −25 s; mmcli forks during boot: 23 → 0)
 ```
 
 | Metric | Before | After |
@@ -156,8 +159,8 @@ after:   3s Wi-Fi enum … 50s modem USB (power at S11) … 90.5s Wi-Fi AP
 | Wi-Fi AP (`phy0-ap0`) | 87.5 s | 90.5 s |
 | `mmcli` forks during boot | 23 | 0 |
 
-The modem shows up 112 seconds earlier and the wasted work is gone, so why is
-the total unchanged? The rc.common profile shows the remaining chunks
+The modem shows up 112 seconds earlier and the wasted work is gone, so why does
+`init complete` still land at about 190 seconds? The rc.common profile shows the remaining chunks
 plainly: S95frr about 30 seconds, S10boot about 16, S80ucitrack about 12,
 S19firewall about 11, plus a late-boot stretch where things like sysntpd,
 mwan3, dnsmasq, and firewall get invoked over and over. I have not

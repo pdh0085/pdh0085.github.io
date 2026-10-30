@@ -86,20 +86,21 @@ about 4 GiB every time the board rebooted.
 The symptom: vnstat totals leapt by roughly 4 GiB on every reboot or
 reconnect. The decisive clue was in the database. One five-minute row
 recorded `rx ≈ 4294965968`, almost exactly 2^32, while the kernel counters
-for the same window showed a few hundred KB. The root cause was vnstat's
-`64bitInterfaceCounters` sitting at its default of `-2` (auto). The byte
-counters on `wwan0` reset to zero on every reboot/reconnect, and auto mode
-interprets that decrease as a 32-bit wraparound, adding **2^32 = 4.00 GiB**.
-The fix that stopped the jumps on our boards was forcing
-`64bitInterfaceCounters 1`.
+for the same window showed a few hundred KB. The byte counters on
+`wwan0` reset to zero on every reboot/reconnect, and vnstat interprets that
+decrease as a 32-bit wraparound, adding **2^32 = 4.00 GiB**.
 
-And the fix had to land in two places: uci-defaults (new and factory-reset
-boards) and a hotplug script (boards already deployed in the field), because
-uci-defaults never runs again on a config-preserving upgrade. That is the
-exact lesson from [an earlier post in this series](/posts/code-that-never-updates-in-the-field/). One last thing: history
-that was already polluted only goes away when the user resets the usage
-statistics once. The config change only stops new inflation; the past stays
-as it is.
+Our first fix was forcing `64bitInterfaceCounters 1` (the default is `-2`,
+auto), shipped in two places: uci-defaults for new and factory-reset boards,
+and a hotplug script for boards already in the field, because uci-defaults
+never runs again on a config-preserving upgrade. That is the exact lesson
+from [an earlier post in this series](/posts/code-that-never-updates-in-the-field/).
+We recorded that fix as verified, and it was later disproved: the setting
+does not stop vnstat from treating a reset as a 32-bit wrap. What fixed it
+was keeping vnstat's working database on tmpfs and the long-term totals in
+a separate ledger. One last thing: history that was already polluted only
+goes away when the user resets the usage statistics once. A fix only stops
+new inflation; the past stays as it is.
 
 ## Small Things
 
