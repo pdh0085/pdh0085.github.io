@@ -4,6 +4,8 @@ date: 2026-08-17T09:51:00+09:00
 draft: false
 tags: [5g, modem, hardware, debugging]
 categories: [cellular-networking]
+series: [5g-cpe-field-notes]
+series_part: 1
 summary: "A 5G CPE in the field reported zero GPS satellites. Every value we could read matched a healthy unit, so the case was closed as a hardware fault. The problem was the values we couldn't read: one AT command later, the 'dead' board was tracking 22 satellites."
 ---
 

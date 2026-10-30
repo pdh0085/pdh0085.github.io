@@ -131,7 +131,7 @@ will thoroughly confuse whoever connects next. Always add `-r`.
 Recovery features are never exercised by normal use, so the only option is
 to actually press them, every release. Neither of these bugs would have
 surfaced on the happy path. And "failed, but returned 0" is the worst kind
-of failure — the harder a feature's outcome is to observe (resets,
+of failure. The harder a feature's outcome is to observe (resets,
 upgrades), the more its exit code and its post-state both need checking.
 
 The abstraction story deserves its own sentence. An abstraction can coexist

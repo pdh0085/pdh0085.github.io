@@ -10,7 +10,7 @@
   {{- end }}
 </header>
 <div class="term-index">
-  {{- range .Pages.ByTitle }}
+  {{- range .Pages.ByWeight }}
   <section>
     <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a> <sup>{{ len .Pages }}</sup></h2>
     {{- with .Description }}<p class="term-desc">{{ . }}</p>{{ end }}

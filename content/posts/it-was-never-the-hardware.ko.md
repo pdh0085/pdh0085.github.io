@@ -4,6 +4,8 @@ date: 2026-08-17T09:51:00+09:00
 draft: false
 tags: [5g, modem, hardware, debugging]
 categories: [cellular-networking]
+series: [5g-cpe-field-notes]
+series_part: 1
 summary: "GPS가 안 잡히던 5G CPE. 읽을 수 있는 값이 전부 같았기 때문에 하드웨어 고장이라고 결론 냈다. 문제는 우리가 그 값을 다 읽지 못하고 있었다는 것이었다. 명령어 한 줄 뒤, '고장 난' 보드는 위성 22개를 잡고 있었다."
 ---
 

@@ -43,7 +43,7 @@ $ iw phy phy0 info | grep 6135
 탄다.
 
 ```
-$ iperf3 -c 10.1.1.1 -B 192.168.10.212%wlp3s0 -t 5
+$ iperf3 -c <server> -B <wifi-ip>%wlp3s0 -t 5
 ...
 wlp3s0 TX 증가: 489 MB   enp1s0 TX 증가: 0 MB
 ```
@@ -242,9 +242,9 @@ MT7927에서는 이게 비어서 온다. 그 결과 능력 게이트가 전부 �
 부여됐고 AP 쪽 debugfs에서도 링크 세 개가 확인됐다.
 
 ```
-wlp3s0: [link 0] local 36:2e:4a:82:fb:df <- AP 06:0c:43:26:60:10  (2.4GHz)
-wlp3s0: [link 1] local e6:e0:10:0c:19:3a <- AP 42:0c:43:26:60:10  (5GHz)
-wlp3s0: [link 2] local 6a:e0:6c:f5:9a:4a <- AP 00:0c:43:26:60:10  (6GHz, assoc)
+wlp3s0: [link 0] local 36:2e:4a:xx:xx:xx <- AP 06:0c:43:xx:xx:xx  (2.4GHz)
+wlp3s0: [link 1] local e6:e0:10:xx:xx:xx <- AP 42:0c:43:xx:xx:xx  (5GHz)
+wlp3s0: [link 2] local 6a:e0:6c:xx:xx:xx <- AP 00:0c:43:xx:xx:xx  (6GHz, assoc)
 ```
 
 다만 데이터패스가 불안정했다. 업링크는 1330 Mbps로 올랐는데 다운링크가

@@ -117,7 +117,7 @@ console=ttyS1,115200n8 earlycon=uart8250,mmio32,$ADDR acpi_rsdp=0x... reboot=p n
 The `reboot=p` in that command line is the fifth story. Running `reboot`
 hung right after `reboot: machine restart`. This kernel is built with
 `CONFIG_EFI=n`, so `reboot=efi` is an empty stub, and control falls through
-to `machine_real_restart(MRR_BIOS)` — a far jump to the legacy reset vector
+to `machine_real_restart(MRR_BIOS)`, a far jump to the legacy reset vector
 at 0xFFFF0, where there is no BIOS. Worse, that function is `__noreturn`, so
 the CF9 and triple-fault fallbacks that come after it in the code are never
 reached at all. The fix is `reboot=p`: a CF9 hard reset.

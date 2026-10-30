@@ -35,7 +35,7 @@ modem.**
 Why would it touch the console at all? On this image MM is built without
 udev, so the only way it learns about ports is `mmcli --report-kernel-event`
 called from `hotplug.d`. And the stock tty hotplug script reports every
-tty — the console UART (ttyS1), and even the virtual consoles `tty3`
+tty: the console UART (ttyS1), and even the virtual consoles `tty3`
 through `tty63`.
 
 ## I Wrote a Filter. It Did Nothing

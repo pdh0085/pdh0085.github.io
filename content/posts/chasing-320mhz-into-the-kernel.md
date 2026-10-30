@@ -45,7 +45,7 @@ subnet, which made routing pick the wrong one. Specifying a source IP was
 not enough; the interface has to be pinned as well.
 
 ```
-$ iperf3 -c 10.1.1.1 -B 192.168.10.212%wlp3s0 -t 5
+$ iperf3 -c <server> -B <wifi-ip>%wlp3s0 -t 5
 ...
 wlp3s0 TX delta: 489 MB   enp1s0 TX delta: 0 MB
 ```
@@ -249,9 +249,9 @@ Forcing the gate open brought all three links up, each with its own local
 address, and the AP's debugfs agreed.
 
 ```
-wlp3s0: [link 0] local 36:2e:4a:82:fb:df <- AP 06:0c:43:26:60:10  (2.4GHz)
-wlp3s0: [link 1] local e6:e0:10:0c:19:3a <- AP 42:0c:43:26:60:10  (5GHz)
-wlp3s0: [link 2] local 6a:e0:6c:f5:9a:4a <- AP 00:0c:43:26:60:10  (6GHz, assoc)
+wlp3s0: [link 0] local 36:2e:4a:xx:xx:xx <- AP 06:0c:43:xx:xx:xx  (2.4GHz)
+wlp3s0: [link 1] local e6:e0:10:xx:xx:xx <- AP 42:0c:43:xx:xx:xx  (5GHz)
+wlp3s0: [link 2] local 6a:e0:6c:xx:xx:xx <- AP 00:0c:43:xx:xx:xx  (6GHz, assoc)
 ```
 
 The datapath was another matter. Uplink rose to 1330 Mbps while downlink

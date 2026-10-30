@@ -4,6 +4,8 @@ date: 2026-09-11T12:33:38+09:00
 draft: false
 tags: [5g, fwa, tr-069, reliability]
 categories: [remote-management]
+series: [5g-cpe-field-notes]
+series_part: 4
 summary: "We worked backwards from every situation that forces a field visit and built five guards into our 5G CPE. The hard part was never the fixing logic; it was the stopping conditions. A recovery feature that doesn't know when to stop isn't recovery, it's a new outage."
 ---
 
@@ -236,7 +238,7 @@ the image before burning it, so a truncated download or a corrupted file
 gets rejected before storage is wiped. It is the prevention-side answer to
 the bricking problem an earlier post covered.
 
-We took the first image carrying this check to the bench to flash it — and
+We took the first image carrying this check to the bench to flash it, and
 it was rejected.
 
 The image was fine. Byte-for-byte it had the same structure as the

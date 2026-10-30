@@ -4,6 +4,8 @@ date: 2026-09-14T13:33:13+09:00
 draft: false
 tags: [openwrt, fwa, reliability, testing]
 categories: [remote-management]
+series: [ls500x-nm500g-5g-fwa]
+series_part: 4
 summary: "The real value of an FWA device isn't its spec sheet; it's the fraction of incidents that end without a truck roll. So we built a table of truck-roll causes and their defenses, and graded every row measured, armed, inference, or gap. A zombie modem recovered unattended in 104 seconds. The table still has gap rows, and we wrote them down instead of erasing them."
 ---
 
@@ -183,7 +185,7 @@ Beyond the drills, briefly, the other rows.
 
 The most important thing about migrations is not the mechanism but the
 boundary: a migration fixes only what is measurably wrong and never touches
-a value the customer chose. There is no mechanism enforcing that boundary —
+a value the customer chose. There is no mechanism enforcing that boundary;
 it is held by discipline. The document says exactly that, too.
 
 ## The Numbers
@@ -222,9 +224,9 @@ We are spending next quarter erasing these three lines.
 "It works" is not an answer. The grade of evidence behind the claim is the
 answer, and four grades have been enough for us. The only way to upgrade a
 row is to actually break the thing, and a drill's real payoff is rarely the
-number — it's the defect hiding inside something that everyone thought was
-working. The rows I value most are the gap rows; writing down what you
-can't do first is what makes the rest of your numbers believable.
+number. It's the defect hiding inside something that everyone thought was
+working. The rows I value most are the gap rows. They are what keep the
+measured rows from being inflated.
 
 Two smaller things worth keeping as well. Put a ceiling on your automation:
 a reboot erases its own logs, so after three attempts we stop and preserve

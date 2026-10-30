@@ -2,8 +2,10 @@
 title: "We Stopped Trusting 'Verified by Design'"
 date: 2026-08-19T11:07:09+09:00
 draft: false
-tags: [openwrt, u-boot, firmware-update, reliability, testing]
+tags: [openwrt, fwa, u-boot, firmware-update, reliability, testing]
 categories: [updates-recovery]
+series: [ls500x-nm500g-5g-fwa]
+series_part: 1
 summary: "The A/B rollback on our 5G FWA router had never actually fired in three years, and the docs graded it 'verified by design.' So we broke the router two different ways on purpose. It came back on its own in 26.5 and 43.5 seconds, and along the way we found two places where our documentation was wrong."
 ---
 
@@ -180,4 +182,4 @@ copied into three documents, and the only thing that broke the copy chain
 was re-measuring against real hardware. Distrust your instruments first:
 all three lies in these drills came from the measurement side, not the
 board. And when you describe a safety net, write down what it cannot catch
-as well. That's what makes the rest of your numbers believable.
+as well. The "boot failure only" limit above is part of the result, not a footnote.

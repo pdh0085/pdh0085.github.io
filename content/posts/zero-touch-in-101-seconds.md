@@ -4,6 +4,8 @@ date: 2026-09-02T08:27:06+09:00
 draft: false
 tags: [openwrt, tr-069, fwa]
 categories: [remote-management]
+series: [ls500x-nm500g-5g-fwa]
+series_part: 2
 summary: "A factory-fresh router found the carrier's management server on its own, pulled its configuration, and was in service in 101.5 seconds, 100.9 of which were boot time. On the way to that number, we discovered a feature that our docs said we supported but that had never once executed."
 ---
 
@@ -208,6 +210,6 @@ Verify against the final effect, not the setting: the SSID actually in the
 air rather than the string in the UI, the image after a factory-clean flash
 rather than the source tree. Defensive logic that remembers failure forever
 eventually becomes the failure; grace and retry is almost always cheaper.
-And measurement conditions are part of the number. Writing "measured on
-Ethernet" and "test-server figure" where true is what makes the rest of
-the numbers believable.
+And measurement conditions are part of the number: "measured on Ethernet"
+and "test-server figure" belong next to the values they qualify, every
+time those values are quoted.

@@ -73,7 +73,7 @@ mmcli -m 0 | grep -E 'primary port|manufacturer'
 ```
 
 One more thing: this bug is invisible on the PLS83, because that module has
-no cdc-wdm to lose. It only shows up with a Quectel module fitted — a bug
+no cdc-wdm to lose. It only shows up with a Quectel module fitted: a bug
 that requires a hardware configuration change to become observable. A
 classic trap for a product that ships multiple module variants.
 

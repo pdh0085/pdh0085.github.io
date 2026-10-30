@@ -2,8 +2,10 @@
 title: "펌웨어 굽는 중에 전원을 뽑았다"
 date: 2026-08-26T13:49:37+09:00
 draft: false
-tags: [openwrt, firmware-update, recovery, reliability]
+tags: [openwrt, 5g, firmware-update, recovery, reliability]
 categories: [updates-recovery]
+series: [5g-cpe-field-notes]
+series_part: 3
 summary: "플래시 도중 전원이 나가면 벽돌이 된다. A/B 파티션을 넣을 공간은 없었다. 두 번째 슬롯에 필요한 226MB가 1024MB 저장소 어디에도 없었기 때문이다. 이미 구워져 나오는 recovery 파티션으로 그 창을 닫았고, 진짜로 전원을 뽑아서 확인했다. 복귀까지 약 2분 30초, 사람 손은 닿지 않았다."
 ---
 
@@ -20,7 +22,7 @@ summary: "플래시 도중 전원이 나가면 벽돌이 된다. A/B 파티션�
 
 교과서적인 답은 A/B 파티션이다. 저장소를 두 벌 두고 한쪽에 쓰는 동안 다른 쪽으로 부팅한다.
 쓰다가 죽으면 원래 쪽으로 그냥 부팅하면 되니 벽돌이 될 구간 자체가 없다. 이 블로그에서
-[A/B 슬롯이 있는 제품의 롤백 훈련](/posts/ab-rollback-drills/)을 다룬 적이 있는데, 이번 제품은
+[A/B 슬롯이 있는 제품의 롤백 훈련](/ko/posts/ab-rollback-drills/)을 다룬 적이 있는데, 이번 제품은
 그 사치를 부릴 수 없었다. 이유는 단순하다. 공간이 없다. 두 번째 슬롯을 만들려면 226MB가
 필요한데, 저장소는 정확히 1024MB이고 남는 곳이 없다. 떼 올 수 있는 후보 파티션들은 전부
 쓰임이 있었다. 파티션 테이블을 바꾸는 것은 신규 양산 물량에나 가능한 이야기라, 이미 팔린

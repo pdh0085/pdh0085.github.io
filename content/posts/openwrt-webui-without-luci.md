@@ -143,7 +143,7 @@ they vanish without any error.
   file-existence check dies.
 - Environment values like `L.env.cgi_base` were injected by the dispatcher.
   They became empty strings, and firmware upload, backup download, and
-  restore all returned 404 — precisely the three features we had kept
+  restore all returned 404: precisely the three features we had kept
   cgi-io for.
 
 ## 6. "Renders" ≠ "Works"
