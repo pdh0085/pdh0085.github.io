@@ -26,7 +26,7 @@ this:
 | Sleep | `110` |
 
 One prerequisite worth noting: to see these GPIOs at all, the kernel needs
-`CONFIG_LPC_SCH=y`. Without it there is no error; the `sch_gpio` chip simply
+`CONFIG_LPC_SCH`. Without it there is no error; the `sch_gpio` chip simply
 never appears. That alone was one trap along the way.
 
 ## The Symptom
@@ -77,7 +77,8 @@ pump.
 Fixing that one mapping line cleared three unresolved items at once. The
 "dead charge pump": the chip was healthy, and the port had simply never been
 in RS-232 mode. The zero-byte loopback was not a PC flow-control problem,
-same cause. The "failed" dry-contact test, same cause again. When a single
+same cause. And a dry-contact test that had been logged as "failed": same
+cause again. When a single
 root cause explains three open issues simultaneously, that is a good sign
 you have actually found it.
 
@@ -104,7 +105,7 @@ is a patch for it, so it must be working" is not verification either.
 
 One last note. The serial daemon (`serialgw`) that owns this port reads
 `/sys/class/tty/console/active` and refuses to open whatever the system
-console device is. In an earlier part of this series, ModemManager probed the
+console device is. In [an earlier part of this series](/posts/code-that-never-updates-in-the-field/), ModemManager probed the
 console UART and wrecked the console. Once was enough.
 
 ## Lessons

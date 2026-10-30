@@ -34,9 +34,9 @@ modem.**
 
 Why would it touch the console at all? On this image MM is built without
 udev, so the only way it learns about ports is `mmcli --report-kernel-event`
-called from `hotplug.d`. And the stock tty hotplug script reports every
-tty: the console UART (ttyS1), and even the virtual consoles `tty3`
-through `tty63`.
+called from `hotplug.d`. And the stock tty hotplug script has no port
+filter: every physical tty gets reported, the console UART (ttyS1)
+included. Only ttys under `/sys/devices/virtual` are skipped.
 
 ## I Wrote a Filter. It Did Nothing
 
@@ -99,10 +99,10 @@ can't be whited out, and they always come from the new image.
   by `mmcli -L`.
 
 Bottom line: `mmcli` forks during boot went from 23 to 0. What that means
-for boot time gets its own numbers in the next part. The guard hid one trap
+for boot time gets its own numbers in [the next part](/posts/dissecting-a-190-second-boot/). The guard hid one trap
 of its own, too. `cdc-wdm` control nodes have no hotplug event of their own,
 and an early version of the guard swallowed their report, silently demoting
-the modem to AT+PPP. That story belongs to the cellular part of this series.
+the modem to AT+PPP. That story belongs to [the cellular part of this series](/posts/when-the-modem-says-connected/).
 
 ## A Bonus Trap: Partial Marker Matches
 

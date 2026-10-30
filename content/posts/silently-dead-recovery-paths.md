@@ -38,7 +38,7 @@ never makes it to that line.
 `platform_do_upgrade` runs in stage 2. After `ubus call system sysupgrade`,
 procd execs into a fresh environment, and the only values that cross that
 boundary are prefix / path / force / backup / command / options, which
-procd hands over as `$IMAGE`, `$UPGRADE_BACKUP`, `$WDTFD`, and
+reach stage 2 as `$IMAGE`, `$UPGRADE_BACKUP`, `$WDTFD`, and
 `$UPGRADE_OPT_*`.
 
 ```
@@ -90,7 +90,7 @@ cause is our unusual layout, not the code.
 
 First fix, which then rotted. I added a fallback: "if the volume can't be
 found, wipe the mounted `/overlay`." It worked. Right up until the root
-filesystem moved to a squashfs loop.
+filesystem [moved to a squashfs loop](/posts/getting-the-rootfs-out-of-ram/).
 
 Second failure: the abstraction *succeeds*. Once the root became
 squashfs, the `rootdisk` driver started binding. That driver looks for a
@@ -101,7 +101,7 @@ alignment padding on a read-only loop device. So:
 
 - `volume_find()` succeeds, so the fallback never fires
 - it returns an unwritable device a few KB in size
-- `jffs2_reset()` tries to run `mkfs.ext4` on it
+- `factoryreset` then tries to run `mkfs.ext4` on it
 
 ```
 Filesystem too small for a journal

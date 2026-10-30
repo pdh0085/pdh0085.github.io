@@ -77,7 +77,7 @@ consumes the box.
 
 When OpenVPN is the bottleneck, total device CPU sits near 1.4 cores.
 That looks like headroom, but it isn't. Inspecting the single process
-showed it pushing 217 Mbit/s while using 91% of the only core available
+showed it pushing 217 Mbit/s in that run while using 91% of the only core available
 to it. Two footnotes fall out of this:
 
 - Making the forwarding path faster won't raise the OpenVPN numbers. That
@@ -143,7 +143,7 @@ view was not separately measured.
 The initial measurement was 51.30 seconds, and the cause was simply the
 default timers: a 10-second probe interval times 5 failures is 50
 seconds, and the measured value is that plus probe spacing and round
-trips. Since the model predicted, tuning behaved as predicted: 3 seconds
+trips. Because the model explained the number, tuning behaved as predicted: 3 seconds
 times 3 failures gave 9.58 s, and that setting also had the smallest
 variance. With a footnote attached: "the 3-second interval doesn't flap"
 is based on nine minutes of idle observation and predicts nothing about a
@@ -157,7 +157,7 @@ Measured on the same board, minutes apart:
 
 | Connection-tracking flush setting | Blackhole failover |
 |---|---|
-| Unset (as shipped) | **>120 s — never recovered** |
+| Unset (as shipped) | **>120 s, never recovered** |
 | Set | 50.15 s |
 | Unset again (control) | >120 s |
 
@@ -230,7 +230,7 @@ All measured. Single stream, 20 seconds, median of 3.
 |---|---|
 | NAT | 896 / 938 Mbit/s (2.28 cores) · direct-connect control 929 |
 | WireGuard | 529 / 461 (2.51 cores) |
-| IPsec (AES-GCM) | 520 / 372 (1.54 cores — 40% less CPU per bit) |
+| IPsec (AES-GCM) | 520 / 372 (1.54 cores; 40% less CPU per bit) |
 | OpenVPN UDP / TCP | 223 / 169 · 157 / 135 (single-threaded, 91% of one core) |
 | WAN failover (blackhole) | 9.58 s (51.30 s before tuning) |
 | Mesh backhaul (1 m) | 723 / 664 Mbit/s, join in 5.1 s |

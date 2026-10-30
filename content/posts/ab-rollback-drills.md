@@ -107,7 +107,7 @@ kernel command line had no `panic=`. On a kernel panic, the board doesn't
 reset; it just sits there. No reset, no counter, no A/B.
 
 Which means the 43.5 seconds above was actually measured with `panic=5`
-added by hand as test rig. We recorded it as a floor value rather than a
+added by hand for the test. We recorded it as a floor value rather than a
 field number, and opened a new gap item.
 
 The follow-up: we shipped `panic=5` in the board's kernel arguments via the
@@ -168,8 +168,8 @@ All measured on real hardware.
 | Item | Value |
 |---|---|
 | Corrupt image rejection | 3.9 s, flash untouched |
-| Rollback — corrupt image | 4.9 s per failure · usable in 26.5 s from first reset |
-| Rollback — boots then dies | 13.5 s per failure · 43.5 s |
+| Rollback (corrupt image) | 4.9 s per failure · usable in 26.5 s from first reset |
+| Rollback (boots, then dies) | 13.5 s per failure · 43.5 s |
 | Kernel panic → automatic recovery (3.1.33) | ~75 s, panic dump preserved |
 | Full ACS remote upgrade | ~92 s (download command → success report) |
 

@@ -178,8 +178,8 @@ Beyond the drills, briefly, the other rows.
   management server," because this product ships with no management server
   address configured, so that answer would freeze every retail unit at
   factory defaults forever. Instead we built a numbered migration scheme and
-  induced-tested that the failover-timer improvement from an earlier post in
-  this series (51.30 s down to 9.58 s) actually reaches a unit that never
+  induced-tested that the failover-timer improvement from [an earlier post in
+  this series](/posts/honest-router-numbers/) (51.30 s down to 9.58 s) actually reaches a unit that never
   had it. After a settings-preserving upgrade the value converged, and on
   the second reboot nothing happened at all. It's idempotent.
 

@@ -144,7 +144,7 @@ is configured, the rule doesn't exist at all.
 
 Over XMPP (TR-069 Annex K), the device holds one outbound session, so zero
 inbound ports are open. Call to session: 0.65 s. That number, though, is
-from a test server. Against a commercial ACS (GenieACS) we have confirmed
+from a test server. Against a production ACS (GenieACS) we have confirmed
 the session stays up across the internet with certificate verification
 passing; the final step, an inbound call pushed from that side, is still
 pending. On CGNAT (most 5G lines) this is the path that matters, so we keep

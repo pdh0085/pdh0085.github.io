@@ -202,7 +202,7 @@ out of sysfs and creating the node ourselves.
 Where to hook in had the same flavor. We naturally attached our logic to
 `platform_do_upgrade` (the function that performs the actual upgrade), but
 by then the system has already pivoted to a ramdisk holding only a fixed
-list of binaries. No our-script, no `cmp`, no `df`. It only worked after
+list of binaries. Our script wasn't there, and neither were `cmp` or `df`. It only worked after
 moving one stage earlier, to `platform_pre_upgrade`.
 
 ## Limitations

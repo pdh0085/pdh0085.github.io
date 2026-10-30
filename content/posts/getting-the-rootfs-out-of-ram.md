@@ -90,8 +90,8 @@ written further down the script is never reached.
 
 The board hung. What saved it was a one-shot flag planted in advance:
 power-cycle, and it booted the old path. This was the moment that safety
-pattern actually paid for itself; the full story belongs to the next post in
-this series.
+pattern actually paid for itself; the full story belongs to [the next post in
+this series](/posts/boot-escalation-ladder/).
 
 ## Step 2, Attempt 2: Rewrite PID 1 Itself
 
@@ -156,8 +156,8 @@ takes about 51 seconds, which fits under uhttpd's default
 seconds and returns 502, but this time it is not OOM. Raise
 `script_timeout` to 300 and it completes in about 108 seconds with a 200.
 
-Same status code, completely different cause. The second demonstration in
-this project that you must not infer the cause from the symptom code.
+Same status code, completely different cause. Both 502s in this post are
+the reason not to infer the cause from the symptom code.
 
 ## Lessons
 

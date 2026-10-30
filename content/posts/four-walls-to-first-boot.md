@@ -13,7 +13,7 @@ summary: "The kernel came up fine. There was just no console, no disk, and no et
 
 ## We Made It to Userspace
 
-In an earlier part of this series we built the `x86/quark` subtarget and its
+In [an earlier part of this series](/posts/i586-toolchain-in-2026/) we built the `x86/quark` subtarget and its
 toolchain. Time to hook the kernel into the GRUB menu and boot. The short
 version: the kernel came up. It reached
 `kmodloader: done loading kernel modules`, so userspace was alive.
@@ -116,7 +116,7 @@ console=ttyS1,115200n8 earlycon=uart8250,mmio32,$ADDR acpi_rsdp=0x... reboot=p n
 
 The `reboot=p` in that command line is the fifth story. Running `reboot`
 hung right after `reboot: machine restart`. This kernel is built with
-`CONFIG_EFI=n`, so `reboot=efi` is an empty stub, and control falls through
+`CONFIG_EFI=n`, so the EFI reboot step is an empty stub, and control falls through
 to `machine_real_restart(MRR_BIOS)`, a far jump to the legacy reset vector
 at 0xFFFF0, where there is no BIOS. Worse, that function is `__noreturn`, so
 the CF9 and triple-fault fallbacks that come after it in the code are never

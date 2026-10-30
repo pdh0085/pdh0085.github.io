@@ -13,7 +13,7 @@ summary: "커널은 잘 떴다. 콘솔이 안 보이고, eMMC가 없고, 이더�
 
 ## 유저스페이스까지는 갔다
 
-이 시리즈의 앞선 편에서 `x86/quark` 서브타겟과 툴체인을 만들었다. 이제 빌드된
+[이 시리즈의 앞선 편](/ko/posts/i586-toolchain-in-2026/)에서 `x86/quark` 서브타겟과 툴체인을 만들었다. 이제 빌드된
 커널을 GRUB 메뉴에 물리고 부팅할 차례다. 결과부터 말하면, 커널은 떴다.
 `kmodloader: done loading kernel modules`까지 갔으니 유저스페이스 진입은
 성공이다.
@@ -107,7 +107,7 @@ console=ttyS1,115200n8 earlycon=uart8250,mmio32,$ADDR acpi_rsdp=0x... reboot=p n
 
 위 커맨드라인의 `reboot=p`가 다섯 번째 이야기다. `reboot`을 치면
 `reboot: machine restart` 직후 멈췄다. 이 커널은 `CONFIG_EFI=n`이라
-`reboot=efi`는 빈 스텁이고, 그대로 `machine_real_restart(MRR_BIOS)`로 떨어져
+EFI 재부팅 단계는 빈 스텁이고, 그대로 `machine_real_restart(MRR_BIOS)`로 떨어져
 레거시 리셋 벡터(0xFFFF0)로 far jump 하는데, 거기엔 BIOS가 없다. 게다가 그
 함수는 `__noreturn`이라 뒤에 있는 CF9·트리플폴트 폴백이 아예 실행되지 않는다.
 해결은 `reboot=p`, 즉 CF9 하드 리셋이다.

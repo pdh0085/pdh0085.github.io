@@ -107,5 +107,5 @@ artifacts.
 
 What this stage bought was not a boot. It was a correct floor: proof that
 every binary uses only what this CPU actually has, and nothing it doesn't.
-The next post in this series is about the kernel refusing to come up on top
+[The next post in this series](/posts/four-walls-to-first-boot/) is about the kernel refusing to come up on top
 of that floor.

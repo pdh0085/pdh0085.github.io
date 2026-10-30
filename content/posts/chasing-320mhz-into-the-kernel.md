@@ -4,7 +4,7 @@ date: 2026-10-02T10:52:15+09:00
 draft: false
 tags: [wifi, kernel, debugging]
 categories: [cellular-networking]
-summary: "The AP, the regulatory rules and the adapter all said 320MHz, and the negotiation still stopped at 160. The kernel message blamed regulatory; every tool I had said there was no restriction on the channel. Neither was true. The culprit was a country restriction table living in the firmware, and the flag it set was invisible from user space."
+summary: "The AP, the regulatory rules and the adapter all said 320MHz, and the negotiation still stopped at 160. The kernel message blamed regulatory; every tool I had said there was no restriction on the channel. Neither was true. The culprit was a country restriction table living in the firmware, and the flag it led to never showed up in my user-space tools."
 ---
 
 This started as a quick check: does the new Wi-Fi 7 adapter work on Linux,
@@ -82,7 +82,7 @@ been frozen at 15.00 dBm in 2.11 and came up to the regulatory limit of
 raised the limit by 8 dB, had moved uplink by nothing at all. The ceiling
 went up; the actual output never followed.
 
-Downlink wandered between 637 and 1190 Mbps across the whole session. With
+Downlink wandered between 637 and 1190 Mbps across the 160MHz runs. With
 the signal unchanged and only the receive MCS drifting between 8 and 5,
 that reads as interference, not as a fix. Uplink was the only number that
 moved for a reason.
@@ -125,10 +125,15 @@ To see whether the channel carried something like `no 320MHz`, I went
 through `iw phy info`. Nothing there. So I ruled regulatory out. Also
 wrong.
 
-As it turns out, `iw` cannot print that flag at all. The only channel flag
-it renders as a string is `no IR`. So I wrote a tool that parses nl80211
-directly and looked again, and got the same answer, this time for a
-different reason: the kernel never exports the flag over nl80211.
+As it turns out, `iw` cannot print that flag at all. For channels it only
+renders `disabled`, `no IR` and `radar detection`, never a width
+restriction. So I wrote a tool that parses nl80211 directly and looked
+again, and got the same answer. At the time I concluded that the kernel
+never exports the flag over nl80211. That was wrong too: nl80211 does put
+`NO_320MHZ` into the split wiphy dump, right next to `NO_HT40_MINUS` and
+`INDOOR_ONLY`. So either the two readings below were not as simultaneous
+as I believed, or my parser missed the attribute. I never pinned down
+which.
 
 ```
 raw attributes for 5955 MHz:
@@ -139,8 +144,8 @@ chan->flags inside the kernel at the same moment:
   0x80220 = NO_320MHZ | INDOOR_ONLY | NO_HT40_MINUS
 ```
 
-Invisible from user space, set inside the kernel. "I looked with the tool
-and it wasn't there" is not evidence. Whether the tool can see the thing
+Absent from what I could see in user space, set inside the kernel. "I
+looked with the tool and it wasn't there" is not evidence. Whether the tool can see the thing
 has to be established first. I fell into that twice, once with `iw` and
 once with a tool I had written myself.
 
@@ -194,8 +199,10 @@ firmware and overwrites channel flags with it. There's a module parameter
 to turn it off.
 
 Read the source and CLC looks like it only sets `NO_EHT` (BIT 20) and
-`DISABLED` (BIT 0). The bits didn't match, so I decided it wasn't CLC. That
-was my third wrong call. It sets `NO_320MHZ` (BIT 19) too.
+`DISABLED` (BIT 0), and in upstream mt7925 its channel loop really does
+write only those two. The bits didn't match, so I decided it wasn't CLC.
+That was my third wrong call: whatever path put `NO_320MHZ` (BIT 19) on the
+channels in the DKMS driver I was running, it went away with CLC.
 
 ```
 $ modprobe mt7925_common disable_clc=1
@@ -257,9 +264,9 @@ wlp3s0: [link 2] local 6a:e0:6c:xx:xx:xx <- AP 00:0c:43:xx:xx:xx  (6GHz, assoc)
 The datapath was another matter. Uplink rose to 1330 Mbps while downlink
 collapsed from 1380 to 371 Mbps and retries climbed to 718. MT6639 shares
 RF1 between 5GHz and 6GHz, so binding both links at once appears to tangle
-the receive path. That lines up exactly with the state of the driver
-without the rest of the fixes upstream listed as conditions for bringing
-MLO back. Opening the capability bits was never going to be enough on its
+the receive path. That matches upstream's own conditions for
+bringing MLO back, which list further fixes this driver doesn't have
+yet. Opening the capability bits was never going to be enough on its
 own.
 
 ## What I Took Away
@@ -268,13 +275,14 @@ Nothing was wrong with the adapter. The MT7927 hardware is capable of both
 320MHz and MLO, and the code for both is present in the kernel and the
 driver.
 
-What blocked them was what the firmware reported. 320MHz was blocked because
-CLC stamped `NO_320MHZ` onto every channel; MLO was blocked because
+What blocked them was what the firmware reported. 320MHz was blocked because,
+with CLC on, every channel ended up carrying `NO_320MHZ`; MLO was blocked because
 `chip_cap` arrived as zero and shut the capability gates. Both are at the
 firmware level, and they share a root.
 
-And none of that was visible from user space. Not through `iw`, not through
-the nl80211 tool I wrote myself. Until ftrace and kprobe let me look inside
+And none of that showed up in my user-space tools. Not in `iw`, which
+cannot print the flag, and not in the nl80211 tool I wrote myself, which
+should have seen it and didn't. Until ftrace and kprobe let me look inside
 the kernel, I was stuck at "the AP, the regulator and the adapter all agree,
 so why doesn't it work".
 
@@ -284,31 +292,35 @@ Collecting the wrong calls:
 | --- | --- |
 | Driver doesn't implement 320MHz | It does, and it wasn't part of this decision |
 | Regulatory domain problem | Fooled by the message text; the rules were innocent |
-| No restriction flag on the channel | The tools simply cannot show that flag |
+| No restriction flag on the channel | `iw` can't print it, and my own dump missed it |
+| The kernel doesn't export the flag | It does, in the split wiphy dump |
 | Not CLC, the bits don't match | CLC was the culprit |
 | AP service died from FD exhaustion | My own routing change caused it |
 
-Four of the five were cases of believing I had checked something when I
+Five of the six were cases of believing I had checked something when I
 hadn't. Elimination only works when each candidate can actually be
 observed, and the fact that my instruments couldn't observe this one was
 the last thing I learned, not the first. Next time I plan to establish what
 a tool is able to print before I trust what it doesn't.
 
-The whole reproduction is these four commands.
+The whole reproduction fits in these few lines.
 
 ```sh
 # open 6GHz
 sudo iw reg set TW
 
-# open 320MHz (lab only)
+# open 320MHz (lab only): reload the driver with CLC off
+sudo modprobe -r mt7925e mt7925_common
 sudo modprobe mt7925_common disable_clc=1
+sudo modprobe mt7925e
 
 # force the measurement onto wireless
 iperf3 -c <server> -B <wifi-ip>%wlp3s0 -t 10 -P 4
 
 # look inside the kernel
 echo 'p:usa cfg80211_chandef_usable width=+8($arg2):u32 prohib=$arg3:x32' \
-  > /sys/kernel/tracing/kprobe_events
+  | sudo tee /sys/kernel/tracing/kprobe_events
+echo 1 | sudo tee /sys/kernel/tracing/events/kprobes/usa/enable
 ```
 
 Test setup was an MT7927 (Filogic 380) on Ubuntu 26.04 with kernel

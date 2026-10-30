@@ -78,10 +78,10 @@ to call `ui.changes.setIndicator(0)` yourself.
 Just as "no error" is not the same as "success," an error is not always a
 failure.
 
-## Bonus: Data Usage Grows by 4 GB per Reboot
+## Bonus: Data Usage Grows by 4 GiB per Reboot
 
 Once the data usage page was in place, we noticed the statistics jumped by
-about 4 GB every time the board rebooted.
+about 4 GiB every time the board rebooted.
 
 The symptom: vnstat totals leapt by roughly 4 GiB on every reboot or
 reconnect. The decisive clue was in the database. One five-minute row
@@ -90,13 +90,13 @@ for the same window showed a few hundred KB. The root cause was vnstat's
 `64bitInterfaceCounters` sitting at its default of `-2` (auto). The byte
 counters on `wwan0` reset to zero on every reboot/reconnect, and auto mode
 interprets that decrease as a 32-bit wraparound, adding **2^32 = 4.00 GiB**.
-The fix is forcing `64bitInterfaceCounters 1`. A 64-bit counter cannot wrap,
-so a decrease means a genuine reset, and nothing gets added.
+The fix that stopped the jumps on our boards was forcing
+`64bitInterfaceCounters 1`.
 
 And the fix had to land in two places: uci-defaults (new and factory-reset
 boards) and a hotplug script (boards already deployed in the field), because
 uci-defaults never runs again on a config-preserving upgrade. That is the
-exact lesson from an earlier post in this series. One last thing: history
+exact lesson from [an earlier post in this series](/posts/code-that-never-updates-in-the-field/). One last thing: history
 that was already polluted only goes away when the user resets the usage
 statistics once. The config change only stops new inflation; the past stays
 as it is.

@@ -127,7 +127,7 @@ worst case and try to reproduce.
 ## Culprit 3: The Problem I Expected Early Power to Cause
 
 The modem now shows up before ModemManager (S70). That's fine: the hotplug
-script from an earlier post in this series caches the kernel events and the
+script from [an earlier post in this series](/posts/code-that-never-updates-in-the-field/) caches the kernel events and the
 MM wrapper replays them at startup. I verified that a modem appearing roughly
 90 seconds before MM is picked up normally by `mmcli -L`.
 

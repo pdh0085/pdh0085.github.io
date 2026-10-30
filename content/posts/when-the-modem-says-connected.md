@@ -42,7 +42,7 @@ failure hides itself.
 
 `cdc-wdm` has no hotplug event of its own. It's the QMI/MBIM *control*
 node: it gets discovered through the network interface's sysfs and reported
-separately, under the `usbmisc` subsystem. In an earlier post in this series
+separately, under the `usbmisc` subsystem. In [an earlier post in this series](/posts/code-that-never-updates-in-the-field/)
 I described a no-bus guard we added to the hotplug scripts (if MM isn't up
 yet, cache the event and skip the `mmcli` fork). The first version of that
 guard did its `exit 0` *before* the code path that reports usbmisc devices.
@@ -127,7 +127,7 @@ The EC25-AU registered and attached normally, got a `10.x` address over the
 
 We corrected the record but didn't delete it. A wrong record shouldn't be
 erased; it should be kept alongside the reason it was overturned. That
-practice gets its own post later in this series.
+practice comes back in [the epilogue](/posts/hardware-is-the-truth/).
 
 For contrast: with no SIM inserted at all, `mmcli` reports
 `failed / sim-missing` and `wwan` never comes up. That's not a lie, that's

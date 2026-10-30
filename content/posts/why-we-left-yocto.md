@@ -85,7 +85,7 @@ preview of decisions this constraint actually reversed:
 - forking a single `mmcli` process during boot costs 6–9 seconds, and it was
   happening 23 times
 - and if your root filesystem lives in RAM, large file uploads die from OOM.
-  That one was reported from the field, and the entire middle of this series
+  That one was reported from the field, and [the entire middle of this series](/posts/getting-the-rootfs-out-of-ram/)
   starts from it.
 
 ## Constraint 3: Coexistence
@@ -94,7 +94,7 @@ There is a separate Windows migration tool that moves existing units to the
 new firmware, and that tool owns `grub.conf` (it stamps per-board values
 into it). So the firmware never overwrites that file. We crossed that
 ownership boundary exactly once and then backed out; that story belongs to
-the boot-fallback post.
+[the boot-fallback post](/posts/boot-escalation-ladder/).
 
 ## The Working Setup
 
@@ -131,12 +131,12 @@ Writing those down instead of hiding them is also one of this series' rules.
 ## What This Series Is About
 
 Not a feature tour. Most of the posts ahead are stories like these: a
-factory reset that reported success while doing nothing, a config file that
-had never once been read, a modem that said "connected" while passing zero
-packets, and inherited assumptions I finally disproved with experiments.
+[factory reset](/posts/silently-dead-recovery-paths/) that reported success while doing nothing, a [config file](/posts/the-config-file-nobody-read/) that
+had never once been read, a [modem](/posts/when-the-modem-says-connected/) that said "connected" while passing zero
+packets, and inherited assumptions I finally [disproved with experiments](/posts/dissecting-a-190-second-boot/).
 The common thread is things that were failing silently, and what it took to
 notice them.
 
-Next up is the first gate: building a toolchain in 2026 for an i586 CPU with
+[Next up](/posts/i586-toolchain-in-2026/) is the first gate: building a toolchain in 2026 for an i586 CPU with
 no MMX and no SSE. The first build broke not in the compiler, but in libc's
 `fabs()`.

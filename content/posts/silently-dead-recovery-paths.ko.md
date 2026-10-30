@@ -33,8 +33,8 @@ summary: "`sysupgrade -n`은 한 번도 설정을 지운 적이 없었고, 공�
 
 `platform_do_upgrade`는 stage 2에서 실행된다. `ubus call system sysupgrade`
 이후 procd가 새 환경으로 exec 하기 때문에, 그 경계를 넘는 값은
-prefix / path / force / backup / command / options 뿐이고, procd는 그것들을
-`$IMAGE`, `$UPGRADE_BACKUP`, `$WDTFD`, `$UPGRADE_OPT_*`로 바꿔 넘긴다.
+prefix / path / force / backup / command / options 뿐이고, 그것들은 stage 2에
+`$IMAGE`, `$UPGRADE_BACKUP`, `$WDTFD`, `$UPGRADE_OPT_*`로 도착한다.
 
 ```
 stage1 (/sbin/sysupgrade)
@@ -79,9 +79,9 @@ factoryreset: MTD partition 'rootfs_data' not found
 그리고 중단. 모든 초기화 경로가 조용히 아무 일도 하지 않았다. 여기까지는
 우리 배치가 특이한 탓이지 코드 잘못이 아니다.
 
-1차 수정을 했고, 그게 나중에 썩는다. "볼륨을 못 찾으면 마운트된
-`/overlay`를 지운다"는 폴백을 넣었다. 잘 됐다. 루트가 squashfs loop로
-바뀌기 전까지는.
+1차 수정을 했지만, 그것도 나중에 썩었다. "볼륨을 못 찾으면 마운트된
+`/overlay`를 지운다"는 폴백을 넣었다. 잘 됐다. 루트가 [squashfs loop로
+바뀌기](/ko/posts/getting-the-rootfs-out-of-ram/) 전까지는.
 
 2차 고장은 추상화가 "성공"하는 경우였다. 루트가 squashfs가 되자 `rootdisk`
 드라이버가 붙었다. 이 드라이버는 루트 블록 장치에서 squashfs 슈퍼블록을
@@ -91,7 +91,7 @@ squashfs를 쓰는 보드라면 합리적인 규칙이다. 그런데 우리 squa
 
 - `volume_find()`가 성공한다. 그래서 폴백이 발동하지 않는다
 - 쓸 수 없는 몇 KB짜리 장치가 돌아온다
-- `jffs2_reset()`이 거기에 `mkfs.ext4`를 시도한다
+- `factoryreset`이 거기에 `mkfs.ext4`를 시도한다
 
 ```
 Filesystem too small for a journal

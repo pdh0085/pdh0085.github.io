@@ -13,7 +13,7 @@ summary: "Once the root filesystem became a file on eMMC, sysupgrade became the 
 
 ## The Problem
 
-In an earlier part of this series, the root filesystem became a squashfs file
+In [an earlier part of this series](/posts/getting-the-rootfs-out-of-ram/), the root filesystem became a squashfs file
 sitting on the eMMC's FAT partition. That makes sysupgrade "the act of
 replacing that file with a new one," which leaves exactly one question:
 **what if the new root fails to boot?**

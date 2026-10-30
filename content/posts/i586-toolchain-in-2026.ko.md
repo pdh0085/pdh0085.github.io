@@ -24,16 +24,18 @@ OpenWrt에 `x86/quark` 서브타겟을 새로 만들고 CPU 타입을 `lakemont`
 ```
 
 `-momit-lock-prefix`는 단일 코어라 `lock` 프리픽스가 무의미해서 넣었다.
+그럴듯해 보이는 출발점이었다.
 
 ## 첫 빌드 실패
 
-toolchain 빌드가 musl을 컴파일하다 멈췄다.
+툴체인 빌드가 musl을 컴파일하다 멈췄다.
 
 ```
 src/math/i386/fabs.c: error: impossible constraint in 'asm'
 ```
 
-`fabs()`. libc에서 가장 단순한 축에 드는 수학 함수다. 왜일까. 명령어가
+`fabs()`. 절댓값, libc에서 가장 단순한 축에 드는 수학 함수인데 컴파일러는
+거기서 인라인 asm 제약을 만족시킬 수 없다고 한다. 왜일까. 명령어가
 없어서? 아니다.
 
 ## 원인
@@ -46,7 +48,9 @@ FPU가 없다"고 가정하고 x87 레지스터를 아예 안 쓴다. 그런데 
 
 그리고 하드웨어에는 x87이 실제로 있다. 기존 Yocto 이미지가 i586 x87
 유저스페이스를 잘 돌리고 있었고, 그 커널의 `MATH_EMULATION`도 꺼져 있었다.
-오래된 ISA를 타깃할 때 문제는 명령어가 없다는 데서 오는 게 아니라,
+컴파일러의 가정이 하드웨어와 어긋났을 뿐이다.
+
+오래된 ISA를 타깃으로 할 때 문제는 명령어가 없다는 데서 오는 게 아니라,
 **툴체인의 기본값이 내 하드웨어와 다르게 가정한다**는 데서 온다.
 
 ## 수정
@@ -62,14 +66,16 @@ CPU_CFLAGS_lakemont = -march=lakemont -mtune=lakemont -mhard-float -Wa,-momit-lo
 확인했다. x87만 켜지고 MMX/SSE는 계속 꺼져 있어야 하는데, 실제로 그랬다.
 
 한 가지 더. soft-float에서 hard-float로 가는 건 부동소수점 ABI 변경이다.
+예전 가정으로 만든 오브젝트가 새것과 섞이면 안 되므로
 `build_dir/{toolchain,target}-i386_lakemont*`와 staging을 지우고 처음부터
 다시 빌드했다.
 
 ## 검증
 
 빌드는 통과했다. 하지만 "플래그를 줬으니 됐겠지"는 검증이 아니다. 크로스
-빌드에서는 어떤 패키지가 CFLAGS를 무시해도 빌드는 조용히 성공하고, 터지는
-건 보드 위에서다. 그래서 산출물의 ELF 바이너리와 커널 모듈 285개를
+빌드에서는 어떤 패키지가 `-march`를 덮어쓰거나 CFLAGS를 무시해도 빌드는
+조용히 성공하고, 터지는 건 나중에 보드 위에서 바로 그 코드 경로가 실행될
+때다. 그래서 산출물의 ELF 바이너리와 커널 모듈 285개를
 스캔했다.
 
 | 항목 | 결과 |
@@ -89,5 +95,5 @@ CPU_CFLAGS_lakemont = -march=lakemont -mtune=lakemont -mhard-float -Wa,-momit-lo
   보드에서 SIGILL을 쫓는 시간보다 훨씬 싸다.
 
 이 단계에서 얻은 것은 부팅이 아니라 정확한 바닥이다. 모든 바이너리가 이
-CPU에 실제로 있는 것만 쓴다는 확인. 다음 편은 그 바닥 위에서 커널이 안 뜨는
+CPU에 실제로 있는 것만 쓴다는 확인. [다음 편](/ko/posts/four-walls-to-first-boot/)은 그 바닥 위에서 커널이 안 뜨는
 이야기다.

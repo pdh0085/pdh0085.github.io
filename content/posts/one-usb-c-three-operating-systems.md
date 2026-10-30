@@ -16,7 +16,7 @@ The requirement on our 5G CPE fit in a single sentence.
 > Plug in the USB-C cable and the PC sees a network device. No driver
 > installation. Windows, macOS, and Linux.
 
-One sentence, but all of its weight sits in the last five words.
+One sentence, but all of its weight sits in the last line.
 
 A Linux USB gadget can present itself to a host as a network device in
 several different ways, and the problem is that none of the obvious ones

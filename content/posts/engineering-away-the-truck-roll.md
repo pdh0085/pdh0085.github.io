@@ -236,7 +236,7 @@ Finally, the most instructive incident of this whole series.
 Alongside the guards above, we built a pre-flash firmware check: verify
 the image before burning it, so a truncated download or a corrupted file
 gets rejected before storage is wiped. It is the prevention-side answer to
-the bricking problem an earlier post covered.
+the bricking problem [an earlier post covered](/posts/closing-the-brick-window/).
 
 We took the first image carrying this check to the bench to flash it, and
 it was rejected.
@@ -262,7 +262,7 @@ correctly.
 > should pass, and feed it real production artifacts to prove it.
 
 Since that incident, our release procedure includes running two real built
-images through their own image's checker.
+images through the checker each image ships.
 
 ## Lessons
 

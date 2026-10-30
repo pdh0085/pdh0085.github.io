@@ -81,7 +81,7 @@ file-transfer CGIs remain.
 
 ## 3. A Compatibility Layer That Leaves 57 Views Untouched
 
-This migration was realistic for one reason. When we exhaustively surveyed
+This migration was feasible for one reason. When we exhaustively surveyed
 which LuCI client APIs the views actually use, it came to **43 symbols**
 (`form.*`, `ui.*`, `uci.*`, `rpc.*`, `fs.*`, `L.*`). Write a new runtime
 that preserves the install paths and the signatures of those 43 symbols, and

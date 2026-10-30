@@ -27,7 +27,7 @@ four beliefs this series disproved.
 
 ## Wrong Belief 1: "Verified by GPIO Readback"
 
-This one is from the serial post. A readback only confirms that the intended
+This one is from [the serial post](/posts/the-real-reason-rs232-was-dead/). A readback only confirms that the intended
 value landed in the register. It says nothing about what that value means to
 the hardware. In reality the code had SER_MODE0 and SER_MODE2 swapped, so
 requesting RS-232 actually selected RS-485 half-duplex. But the document said
@@ -76,8 +76,8 @@ comments, or memory.
   idle, heavy CPU load, and during a live Wi-Fi firmware upload. All three
   enumerated cleanly in 9–10 seconds with zero errors.
 - Verify at the far end. An interface holding an IP address is not proof of
-  connectivity (the modem post), and a successful file write is not proof
-  the configuration reached the daemon (the routing post).
+  connectivity ([the modem post](/posts/when-the-modem-says-connected/)), and a successful file write is not proof
+  the configuration reached the daemon ([the routing post](/posts/the-config-file-nobody-read/)).
 - Break it on purpose. Until we physically pulled 12V in the middle of a
   sysupgrade, the fallback design was just a plausible story.
 - Log close to the hardware. The early-boot `/init` and the init-script
@@ -92,8 +92,8 @@ comments, or memory.
 - Items proven wrong are not deleted. They stay, together with the reason
   they were overturned. Delete them and the next person rebuilds the same
   hypothesis from scratch.
-- The rule "never put logic where the field can't update it" (from the
-  uci-defaults post) applies to documents too. A document nobody reads might
+- The rule "never put logic where the field can't update it" (from [the
+  uci-defaults post](/posts/code-that-never-updates-in-the-field/)) applies to documents too. A document nobody reads might
   as well not exist.
 
 ## What Remains
