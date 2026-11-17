@@ -20,7 +20,7 @@ Reading commands out one character at a time over a call, first on Skype and now
 So, to prevent that situation, I built a small GUI tool that shows the routing table as a list
 and lets you add, edit and delete routes on screen without knowing any commands.
 
-<!-- [Screenshot 1] Main window: routing table list -->
+![The DHRouteView main window, running with normal rights in read-only mode and showing the IPv4 routing table](/images/dhrouteview/main.png)
 
 ## Features
 
@@ -35,8 +35,9 @@ and lets you add, edit and delete routes on screen without knowing any commands.
   (`route add` for IPv4, `netsh` for IPv6)
 - Routes on disconnected interfaces are hidden by default, as in `route print`, and a checkbox shows them
 
-<!-- [Screenshot 2] Add route dialog (preview of what will be applied) -->
-<!-- [Screenshot 3] Bulk delete confirmation after selecting several routes -->
+![The add route dialog. Entering 198.51.100.7/24 shows the cleaned-up 198.51.100.0/24 and the automatically selected interface in the preview line](/images/dhrouteview/add-dialog.png)
+
+![The bulk delete confirmation dialog after selecting three routes](/images/dhrouteview/bulk-delete.png)
 
 ## What I paid attention to
 
