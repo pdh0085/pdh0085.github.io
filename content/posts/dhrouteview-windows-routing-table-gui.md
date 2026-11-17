@@ -1,7 +1,7 @@
 ---
 title: "A GUI Instead of the route Command: DHRouteView, a Windows Routing Table Tool"
-date: 2026-11-17T18:00:00+09:00
-draft: true
+date: 2026-11-17T19:16:23+09:00
+draft: false
 tags: [windows, rust, networking, open-source]
 categories: [remote-management]
 summary: "When an on-site worker plugs a router into a PC, the routing table changes and remote support drops. A small Windows tool written in Rust that lets people check and fix the routing table on screen without knowing any commands."

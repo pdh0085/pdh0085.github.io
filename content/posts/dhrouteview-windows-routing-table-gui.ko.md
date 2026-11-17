@@ -1,7 +1,7 @@
 ---
 title: "route 명령어 대신 GUI로: Windows 라우팅 테이블 도구 DHRouteView"
-date: 2026-11-17T18:00:00+09:00
-draft: true
+date: 2026-11-17T19:16:23+09:00
+draft: false
 tags: [windows, rust, networking, open-source]
 categories: [remote-management]
 summary: "현장 작업자가 라우터를 PC에 꽂으면 라우팅 테이블이 바뀌어 원격 지원이 끊긴다. 명령어를 몰라도 화면에서 라우팅 테이블을 확인하고 바로잡을 수 있도록 Rust로 만든 작은 Windows 도구."
@@ -85,6 +85,7 @@ on-link는 링크 상태와 관계없는 개념이라 "On-link"로만 표기하�
 - GUI: eframe / egui 0.37 + egui_extras (테이블)
 - Windows API: `windows` 0.62 크레이트, 레지스트리는 `windows-registry`
 - 소스 규모: 약 2,100줄 (`src/*.rs`), 테스트 16개 (순수 로직 14개 + 실제 라우팅 테이블·레지스트리를 읽기만 하는 스모크 테스트 2개)
+- UI 언어: 한국어
 - 라이선스: MIT
 
 ```powershell
